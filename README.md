@@ -6,6 +6,8 @@ Portfolio for Ahmed Fathy, an AI Product Engineer in Cairo. It presents four fla
 
 - [Shared project context](docs/PROJECT_CONTEXT.md) — the authoritative brief, live structure, project facts, visual rules, and working agreements.
 - [Decision and session log](docs/DECISION_LOG.md) — dated record of what changed, why it changed, and what remains open.
+- [Joint portfolio roadmap](docs/PORTFOLIO_ROADMAP.md) — the agreed Claude/Codex implementation plan and review gates.
+- [Claude/Codex debate summary](docs/CLAUDE_DEBATE_SUMMARY.md) — disagreements, resolutions, and final verdict.
 - [Portfolio direction](PORTFOLIO_PLAN.md) — earlier creative-direction document.
 - [Miora brief](MIORA_MASTER_PROMPT.md) — a detailed exploratory prompt; it is reference material, not the current implementation plan.
 

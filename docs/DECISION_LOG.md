@@ -8,6 +8,15 @@ This log is deliberately short. Add an entry whenever a change affects positioni
 - Claude Code is installed locally, but its OAuth session is expired. No Claude review has been completed yet.
 - Next action: authenticate Claude Code, run the read-only first round, challenge its proposal, and synthesize the result into `docs/PORTFOLIO_ROADMAP.md`.
 
+## 2026-08-11 — Claude/Codex debate completed
+
+- Claude Opus completed an independent repository audit and a second revised round after Codex challenged seven parts of the first recommendation.
+- Added `docs/CLAUDE_DEBATE_SUMMARY.md` and `docs/PORTFOLIO_ROADMAP.md`.
+- Final baseline: evolve the current production shell; do not rebuild from `scene-offer-v2.html`.
+- Final hierarchy: Offer Pipeline is the homepage positioning anchor; Operations Portal is the evidence anchor and first Featured Work case.
+- Final implementation approach: one shared evidence/motion toolkit with four project-specific behaviors and a review gate after every flagship.
+- Immediate next step: Phase 0 truth pass, followed by Phase 1 primitives. Portal and Offer implementation remain blocked on public-safe assets.
+
 ## 2026-08-11 — Collaboration baseline created
 
 - Confirmed the project is already a local Git repository with remote `AhmeedFathy/Ahmedfathy.com`.
