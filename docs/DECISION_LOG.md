@@ -1,5 +1,11 @@
 # Decision and Session Log
 
+## 2026-08-11 — Shore Thing external link moved inside
+
+- Removed the `Visit live website` action from the Shore Thing record on the Work page.
+- The full project record now has one clear destination: its case study.
+- The official external website action remains available inside the Shore Thing case study only.
+
 ## 2026-08-11 — Premium project evidence treatment
 
 - Reworked the four case-study hero visuals as a single premium evidence system with layered surfaces, controlled depth, edge lighting, and project-specific accent behavior.
