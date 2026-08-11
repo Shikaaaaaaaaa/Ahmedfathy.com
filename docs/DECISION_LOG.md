@@ -1,5 +1,13 @@
 # Decision and Session Log
 
+## 2026-08-11 — Contact page expanded
+
+- Reframed Contact around a useful project brief rather than a minimal generic form.
+- Added verified positioning context: Cairo location, AI product/operational-system focus, good-fit problems, useful discovery inputs, and what the first conversation covers.
+- Added direct Email, GitHub, and LinkedIn choices inside the primary contact panel.
+- Added sender name to the generated email draft and clarified that form data is not stored.
+- Kept WhatsApp unpublished until Ahmed supplies a verified number with country code.
+
 ## 2026-08-11 — Fieldwork temporarily removed
 
 - Removed Fieldwork Estates from the public Work archive because its deployed experience becomes unresponsive at runtime.

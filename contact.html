@@ -18,6 +18,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/clone.css" />
+    <link rel="stylesheet" href="assets/css/contact.css?v=20260811-1" />
   </head>
   <body>
     <header class="topbar">
@@ -38,33 +39,84 @@
         <div class="contact-card fade">
           <div class="contact-copy">
             <span class="kicker">Contact</span>
-            <h1>Send a signal</h1>
+            <h1>Tell me what needs to run better.</h1>
             <p>
-              Product conversations, operational systems, AI workflow questions,
-              and ambitious builds are welcome.
+              I work best on products where a real operating process needs to
+              become clearer, faster, and more reliable software.
             </p>
             <div class="resource">DIRECT LINE · af8847492@gmail.com</div>
+            <dl class="contact-facts">
+              <div><dt>Based in</dt><dd>Cairo, Egypt</dd></div>
+              <div><dt>Focus</dt><dd>AI products + operational systems</dd></div>
+              <div><dt>Best first step</dt><dd>Share the workflow and current friction</dd></div>
+            </dl>
+            <div class="contact-links" aria-label="Direct professional links">
+              <a href="mailto:af8847492@gmail.com">Email</a>
+              <a href="https://github.com/AhmeedFathy" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://www.linkedin.com/in/ahmed-fathy-5778ba269/" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
           </div>
           <form class="signal-form" aria-label="Start an email conversation">
+            <div class="signal-form__intro">
+              <span>Project brief</span>
+              <p>A few concrete details are enough to start a useful conversation.</p>
+            </div>
             <label
+              >YOUR NAME<input
+                required
+                name="name"
+                autocomplete="name"
+                placeholder="Your name" /></label
+            ><label
               >YOUR EMAIL<input
                 required
                 type="email"
                 name="email"
+                autocomplete="email"
                 placeholder="you@company.com" /></label
             ><label
-              >TITLE<input
+              >PROJECT OR ROLE<input
                 required
                 name="title"
-                placeholder="What are we building?" /></label
+                placeholder="What should we discuss?" /></label
             ><label
               >MESSAGE<textarea
                 required
                 name="message"
-                placeholder="Tell me about the problem, workflow, or product."
+                placeholder="Who uses the process today, what is slowing them down, and what should improve?"
               ></textarea></label
-            ><button type="submit">Open Email Draft</button>
+            ><button type="submit">Prepare Email</button>
+            <small class="form-note">Opens a draft in your email app. Nothing is stored on this site.</small>
           </form>
+        </div>
+        <div class="contact-brief-grid fade" aria-label="Contact guidance">
+          <article>
+            <span>01 / GOOD FIT</span>
+            <h2>Problems worth bringing</h2>
+            <ul>
+              <li>Manual workflows that need a reliable internal product</li>
+              <li>AI-assisted systems that require grounding and human review</li>
+              <li>Product ideas that need ownership from discovery to delivery</li>
+            </ul>
+          </article>
+          <article>
+            <span>02 / USEFUL CONTEXT</span>
+            <h2>What helps me understand quickly</h2>
+            <ul>
+              <li>The people operating the process today</li>
+              <li>The files, tools, messages, or handoffs involved</li>
+              <li>The outcome that would prove the system works</li>
+            </ul>
+          </article>
+          <article>
+            <span>03 / WHAT HAPPENS NEXT</span>
+            <h2>A focused first conversation</h2>
+            <p>
+              I will review the context, identify the central workflow, and use
+              the first conversation to clarify scope, constraints, and the
+              smallest useful product slice.
+            </p>
+          </article>
         </div>
       </section>
     </main>
@@ -87,7 +139,7 @@
         >
       </div>
     </footer>
-    <script src="assets/js/clone.js"></script>
+    <script src="assets/js/clone.js?v=20260811-contact1"></script>
     <script defer src="assets/js/site-system.js?v=20260809-site3"></script>
   </body>
 </html>

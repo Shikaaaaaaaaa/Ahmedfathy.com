@@ -87,7 +87,10 @@
 
   document.querySelector('.signal-form')?.addEventListener('submit', event => {
     event.preventDefault();
-    window.location.href = `mailto:af8847492@gmail.com?subject=${encodeURIComponent(event.currentTarget.title.value)}&body=${encodeURIComponent(`${event.currentTarget.message.value}\n\nFrom: ${event.currentTarget.email.value}`)}`;
+    const form = event.currentTarget;
+    const value = field => form.elements.namedItem(field)?.value.trim() || '';
+    const signature = [value('name'), value('email')].filter(Boolean).join(' · ');
+    window.location.href = `mailto:af8847492@gmail.com?subject=${encodeURIComponent(value('title'))}&body=${encodeURIComponent(`${value('message')}\n\nFrom: ${signature}`)}`;
   });
 })();
 
