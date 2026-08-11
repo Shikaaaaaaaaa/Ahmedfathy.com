@@ -11,6 +11,13 @@ This log is deliberately short. Add an entry whenever a change affects positioni
 - Shore Thing is the first flagship to use the new evidence treatment, using approved campaign artwork rather than invented product UI.
 - Added search metadata and clearer contact-form behavior across the live site.
 
+## 2026-08-11 — Four flagship evidence system completed
+
+- Offer Pipeline now opens with a brief-to-decision architecture showing its four agent stages and three explicit quality gates.
+- Operations Portal now opens with a lead-to-launch operating map and the real connected system layers behind it.
+- Medical SaaS now shows a privacy-safe clinic workflow and repeats its in-development state inside the evidence itself.
+- All four evidence scenes use one shared toolkit but retain project-specific content and behavior; mobile layouts were checked at 390px with no horizontal overflow.
+
 ## 2026-08-11 — Claude debate prepared
 
 - Added `docs/CLAUDE_DEBATE_BRIEF.md` with the repository context, references, factual constraints, and a three-round Claude/Codex review protocol.

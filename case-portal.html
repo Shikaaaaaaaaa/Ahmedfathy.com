@@ -16,6 +16,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/clone.css" />
+    <link rel="stylesheet" href="assets/css/evidence.css" />
   </head>
   <body>
     <header class="topbar">
@@ -41,6 +42,36 @@
           ><span>Stack: Flask, Supabase, JavaScript, TypeScript, n8n</span>
         </div>
       </header>
+      <figure
+        class="evidence-frame evidence-frame--portal"
+        data-evidence-reveal
+        data-scroll-scene
+      >
+        <div class="portal-map" aria-label="WeIN Operations Portal workflow map">
+          <div class="evidence-annotation">Operational system map</div>
+          <div class="portal-control">
+            <span>Human control layer</span>
+            <strong>Today queue</strong>
+            <small>Follow-ups · ownership · next actions</small>
+          </div>
+          <div class="portal-route" aria-hidden="true">
+            <span style="--step: 0"><i>01</i><b>Lead</b><small>Contacting</small></span>
+            <span style="--step: 1"><i>02</i><b>Offer</b><small>Approval</small></span>
+            <span style="--step: 2"><i>03</i><b>Deal</b><small>Negotiation</small></span>
+            <span style="--step: 3"><i>04</i><b>Partner</b><small>Onboarding</small></span>
+            <span style="--step: 4"><i>05</i><b>Launch</b><small>Live</small></span>
+          </div>
+          <div class="portal-foundation">
+            <span>Portal UI</span><span>Supabase / Postgres</span
+            ><span>Flask services</span><span>n8n automation</span>
+          </div>
+        </div>
+        <figcaption>
+          <span>Lead to launch</span>
+          A truthful map of the connected operating states and system layers
+          described in this case study.
+        </figcaption>
+      </figure>
       <div class="case-body">
         <section class="case-section fade">
           <h2>What the product actually does</h2>
@@ -141,6 +172,7 @@
       </div>
     </footer>
     <script src="assets/js/clone.js"></script>
+    <script src="assets/js/scene.js"></script>
   </body>
 </html>
 <script defer src="assets/js/site-system.js?v=20260810-case1"></script>

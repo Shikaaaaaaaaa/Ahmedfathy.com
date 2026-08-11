@@ -16,6 +16,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/clone.css" />
+    <link rel="stylesheet" href="assets/css/evidence.css" />
   </head>
   <body>
     <header class="topbar">
@@ -41,6 +42,40 @@
           ><span>Tools: n8n, LLMs, Python, RAG, pgvector</span>
         </div>
       </header>
+      <figure
+        class="evidence-frame evidence-frame--offer"
+        data-evidence-reveal
+        data-scroll-scene
+      >
+        <div class="offer-pipeline" aria-label="Agentic offer pipeline stages">
+          <div class="evidence-annotation">Workflow architecture</div>
+          <div class="offer-source">
+            <span>Human input</span>
+            <strong>Advisor brief</strong>
+            <small>Merchant · location · commercial context</small>
+          </div>
+          <div class="offer-stages" aria-hidden="true">
+            <span style="--step: 0"><i>01</i><b>Intel</b></span>
+            <span style="--step: 1"><i>02</i><b>Concepts</b></span>
+            <span style="--step: 2"><i>03</i><b>Score</b></span>
+            <span style="--step: 3"><i>04</i><b>Create</b></span>
+          </div>
+          <div class="offer-gates">
+            <span>Groundedness</span><span>Fuzzy dedup</span
+            ><span>Auto-geocoding</span>
+          </div>
+          <div class="offer-output">
+            <span>Human decision</span>
+            <strong>Review-ready offer</strong>
+            <small>Visible checks before approval</small>
+          </div>
+        </div>
+        <figcaption>
+          <span>Brief to decision</span>
+          Each stage has a defined responsibility; deterministic gates protect
+          quality before human review.
+        </figcaption>
+      </figure>
       <div class="case-body">
         <section class="case-section fade">
           <h2>Problem</h2>
@@ -98,6 +133,7 @@
       </div>
     </footer>
     <script src="assets/js/clone.js"></script>
+    <script src="assets/js/scene.js"></script>
   </body>
 </html>
 <script defer src="assets/js/site-system.js?v=20260810-case1"></script>

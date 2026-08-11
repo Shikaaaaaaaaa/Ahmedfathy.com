@@ -16,6 +16,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/clone.css" />
+    <link rel="stylesheet" href="assets/css/evidence.css" />
   </head>
   <body>
     <header class="topbar">
@@ -42,6 +43,30 @@
           ><span>Role: Product Owner + Engineer</span>
         </div>
       </header>
+      <figure
+        class="evidence-frame evidence-frame--medical"
+        data-evidence-reveal
+        data-scroll-scene
+      >
+        <div class="medical-flow" aria-label="Private medical SaaS workflow">
+          <div class="evidence-annotation">Private product workflow</div>
+          <div class="medical-status">
+            <i></i><span>In development</span><small>Public-safe system view</small>
+          </div>
+          <div class="medical-stages" aria-hidden="true">
+            <span style="--step: 0"><i>01</i><b>Intake</b><small>Structured details</small></span>
+            <span style="--step: 1"><i>02</i><b>Schedule</b><small>Trackable visit</small></span>
+            <span style="--step: 2"><i>03</i><b>Care state</b><small>Visible ownership</small></span>
+            <span style="--step: 3"><i>04</i><b>Follow-up</b><small>Explicit next step</small></span>
+          </div>
+          <p>One operational path for clinic staff, without exposing patient data or private interface details.</p>
+        </div>
+        <figcaption>
+          <span>Workflow evidence</span>
+          The public case shows the operating model honestly while the product
+          interface remains private.
+        </figcaption>
+      </figure>
       <div class="case-body">
         <section class="case-section fade">
           <h2>The clinic problem</h2>
@@ -105,6 +130,7 @@
       </div>
     </footer>
     <script src="assets/js/clone.js"></script>
+    <script src="assets/js/scene.js"></script>
   </body>
 </html>
 <script defer src="assets/js/site-system.js?v=20260810-saas3"></script>
