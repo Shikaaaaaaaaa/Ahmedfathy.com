@@ -4,9 +4,11 @@
   overflow: hidden;
   margin: 0 auto 34px;
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: 24px;
   background: color-mix(in srgb, var(--panel) 88%, transparent);
-  box-shadow: 0 28px 70px var(--shadow);
+  box-shadow:
+    0 38px 90px color-mix(in srgb, var(--shadow) 80%, transparent),
+    0 1px 0 color-mix(in srgb, var(--text) 9%, transparent) inset;
   isolation: isolate;
 }
 
@@ -17,7 +19,18 @@
   z-index: 2;
   pointer-events: none;
   border-radius: inherit;
-  box-shadow: inset 0 1px color-mix(in srgb, var(--text) 12%, transparent);
+  box-shadow:
+    inset 0 1px color-mix(in srgb, var(--text) 18%, transparent),
+    inset 0 0 80px color-mix(in srgb, var(--accent) 5%, transparent);
+}
+
+.evidence-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(115deg, color-mix(in srgb, var(--text) 7%, transparent), transparent 20% 78%, color-mix(in srgb, var(--accent) 7%, transparent));
 }
 
 .evidence-frame__media {
@@ -35,6 +48,47 @@
   align-items: center;
   padding: 17px 20px;
   border-top: 1px solid var(--line);
+}
+
+.evidence-frame > figcaption {
+  position: absolute;
+  z-index: 5;
+  right: 22px;
+  bottom: 20px;
+  left: 22px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--text) 13%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg) 76%, transparent);
+  box-shadow: 0 18px 45px color-mix(in srgb, var(--shadow) 70%, transparent);
+  backdrop-filter: blur(18px) saturate(125%);
+}
+
+.evidence-frame > figcaption span {
+  min-width: 0;
+  color: color-mix(in srgb, var(--text) 72%, var(--muted));
+  font-size: clamp(0.72rem, 1.15vw, 0.84rem);
+  line-height: 1.45;
+}
+
+.evidence-frame > figcaption strong {
+  display: inline;
+  margin-right: 12px;
+  color: var(--text);
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.evidence-frame > figcaption small {
+  color: var(--accent2);
+  font: 500 0.6rem/1.2 var(--mono);
+  letter-spacing: 0.08em;
+  text-align: right;
+  text-transform: uppercase;
 }
 
 .evidence-frame__caption strong {
@@ -89,6 +143,14 @@
 .evidence-frame--shore .evidence-frame__media {
   aspect-ratio: 16 / 9;
   object-position: center;
+  transform: scale(1.015);
+  transition: transform 0.8s cubic-bezier(.22, 1, .36, 1), filter 0.8s ease;
+  filter: saturate(0.96) contrast(1.04);
+}
+
+.evidence-frame--shore:hover .evidence-frame__media {
+  transform: scale(1.035);
+  filter: saturate(1.06) contrast(1.05);
 }
 
 .evidence-frame--shore .evidence-annotation {
@@ -162,23 +224,38 @@
 .medical-flow {
   position: relative;
   min-height: 29rem;
-  padding: clamp(4.5rem, 8vw, 6.5rem) clamp(1.25rem, 4vw, 3.5rem) 2.5rem;
+  padding: clamp(4.5rem, 8vw, 6.5rem) clamp(1.25rem, 4vw, 3.5rem) 7.25rem;
   overflow: hidden;
   background:
     linear-gradient(rgba(112, 151, 255, 0.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(112, 151, 255, 0.055) 1px, transparent 1px),
-    radial-gradient(circle at 50% 20%, rgba(73, 126, 255, 0.16), transparent 43%),
-    #0b111c;
+    radial-gradient(circle at 50% 12%, rgba(73, 126, 255, 0.24), transparent 40%),
+    radial-gradient(circle at 92% 82%, rgba(75, 224, 190, 0.09), transparent 28%),
+    linear-gradient(145deg, #0d1522, #070c13 70%);
   background-size: 42px 42px, 42px 42px, auto, auto;
+}
+
+.portal-map::after,
+.offer-pipeline::after,
+.medical-flow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255,255,255,0.045), transparent 22% 72%, rgba(90,139,255,0.055));
 }
 
 .portal-control,
 .offer-source,
 .offer-output,
 .medical-status {
-  border: 1px solid rgba(146, 174, 232, 0.3);
-  background: rgba(15, 24, 39, 0.88);
-  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.24);
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(164, 190, 240, 0.26);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(25, 38, 60, 0.9), rgba(10, 17, 29, 0.92));
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3), inset 0 1px rgba(255,255,255,0.07);
+  backdrop-filter: blur(16px);
 }
 
 .portal-control {
@@ -242,6 +319,7 @@
 .portal-route > span,
 .offer-stages > span,
 .medical-stages > span {
+  position: relative;
   z-index: 1;
   display: flex;
   min-height: 7.6rem;
@@ -249,10 +327,24 @@
   justify-content: center;
   gap: 0.35rem;
   padding: 1rem;
-  border: 1px solid rgba(146, 174, 232, 0.24);
-  background: rgba(10, 17, 29, 0.94);
+  border: 1px solid rgba(146, 174, 232, 0.22);
+  border-radius: 14px;
+  background: linear-gradient(150deg, rgba(27, 40, 62, 0.96), rgba(9, 16, 27, 0.94));
+  box-shadow: 0 16px 36px rgba(0,0,0,0.22), inset 0 1px rgba(255,255,255,0.06);
   transform: translateY(calc((1 - var(--scene-progress, 1)) * 18px));
   opacity: calc(0.45 + var(--scene-progress, 1) * 0.55);
+}
+
+.portal-route > span::after,
+.offer-stages > span::after,
+.medical-stages > span::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 14px;
+  left: 14px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(119,166,255,.75), transparent);
 }
 
 .portal-route i,
@@ -279,7 +371,11 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   margin-top: 2.5rem;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
   border: 1px solid rgba(146, 174, 232, 0.22);
+  border-radius: 12px;
   background: rgba(146, 174, 232, 0.22);
 }
 
@@ -301,11 +397,12 @@
 
 .offer-source,
 .offer-output {
-  padding: 1.25rem;
+  padding: 1.35rem;
 }
 
 .offer-output {
   border-color: rgba(109, 235, 187, 0.42);
+  box-shadow: 0 24px 60px rgba(0,0,0,.3), 0 0 44px rgba(109,235,187,.08), inset 0 1px rgba(255,255,255,.07);
 }
 
 .offer-output span {
@@ -326,7 +423,9 @@
 
 .offer-gates span {
   padding: 0.48rem 0.62rem;
-  border: 1px solid rgba(244, 194, 95, 0.28);
+  border: 1px solid rgba(244, 194, 95, 0.32);
+  border-radius: 999px;
+  background: rgba(244, 194, 95, 0.055);
   color: #dcbf7d;
   font: 500 0.59rem/1.1 "DM Mono", monospace;
   text-transform: uppercase;
@@ -377,8 +476,9 @@ body.light .medical-flow {
   background:
     linear-gradient(rgba(57, 93, 155, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(57, 93, 155, 0.07) 1px, transparent 1px),
-    radial-gradient(circle at 50% 20%, rgba(69, 126, 224, 0.14), transparent 43%),
-    #edf3fa;
+    radial-gradient(circle at 50% 12%, rgba(69, 126, 224, 0.18), transparent 42%),
+    radial-gradient(circle at 92% 82%, rgba(21, 150, 130, 0.08), transparent 28%),
+    linear-gradient(145deg, #f4f8fd, #e8f0f9 72%);
   background-size: 42px 42px, 42px 42px, auto, auto;
 }
 
@@ -390,7 +490,8 @@ body.light .portal-route > span,
 body.light .offer-stages > span,
 body.light .medical-stages > span,
 body.light .portal-foundation span {
-  background: rgba(250, 252, 255, 0.94);
+  background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(236,243,251,.92));
+  box-shadow: 0 22px 50px rgba(36,65,104,.12), inset 0 1px #fff;
 }
 
 body.light .portal-control strong,
@@ -411,7 +512,7 @@ body.light .medical-flow > p {
   .offer-pipeline,
   .medical-flow {
     min-height: auto;
-    padding: 4.25rem 1rem 1.25rem;
+    padding: 4.25rem 1rem 8.5rem;
   }
 
   .portal-route,
@@ -460,5 +561,23 @@ body.light .medical-flow > p {
 
   .medical-status small {
     grid-column: 2;
+  }
+
+  .evidence-frame > figcaption {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 12px;
+  }
+
+  .evidence-frame > figcaption strong {
+    display: block;
+    margin: 0 0 3px;
+  }
+
+  .evidence-frame > figcaption small {
+    text-align: left;
   }
 }

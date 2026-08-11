@@ -1,5 +1,12 @@
 # Decision and Session Log
 
+## 2026-08-11 — Premium project evidence treatment
+
+- Reworked the four case-study hero visuals as a single premium evidence system with layered surfaces, controlled depth, edge lighting, and project-specific accent behavior.
+- Replaced the long captions beneath the workflow diagrams with concise metadata rails integrated inside each visual frame.
+- Preserved the real workflows and Shore Thing campaign artwork; the refinement changes presentation, not project claims.
+- Added responsive caption behavior and maintained dark/light theme support.
+
 This log is deliberately short. Add an entry whenever a change affects positioning, content truth, visual direction, navigation, or implementation structure.
 
 ## 2026-08-11 — Flagship records become full-card links
