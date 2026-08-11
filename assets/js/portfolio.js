@@ -11,7 +11,6 @@ const archiveProjects=[
 ["07","Parkinson’s Detection + Severity","Classification · Regression","data","https://github.com/Parkinson-ML/Parkinson"],
 ["08","Shore Thing","React brand experience","product","https://github.com/AhmeedFathy"],
 ["09","Business Automation Library","15 n8n workflows","ai","https://github.com/AhmeedFathy"],
-["10","Fieldwork Estates","Property preview site","product","https://github.com/AhmeedFathy/fieldwork-estates-preview-site"],
 ["11","AI Training Plan Generator","Applied AI prototype","ai","https://github.com/AhmeedFathy/ai-training-plan-generator"],
 ["12","Mono Pedestrian Gallery","Visual web experiment","product","https://github.com/AhmeedFathy/mono-pedestrian-gallery"]
 ];

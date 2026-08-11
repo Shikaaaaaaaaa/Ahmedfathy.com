@@ -1,5 +1,11 @@
 # Decision and Session Log
 
+## 2026-08-11 — Fieldwork temporarily removed
+
+- Removed Fieldwork Estates from the public Work archive because its deployed experience becomes unresponsive at runtime.
+- Removed the same project entry from the legacy portfolio datasets/pages to prevent alternate public paths to the broken experience.
+- Kept the Fieldwork source and deployment repositories untouched so the project can return after its smooth-scroll runtime issue is repaired and verified.
+
 ## 2026-08-11 — Footer conversion path
 
 - Added Contact to the home-page footer's Navigate group.

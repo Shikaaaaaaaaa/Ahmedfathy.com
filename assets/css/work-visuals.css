@@ -141,6 +141,18 @@
   padding: 12px 14px 18px;
 }
 
+.archive-grid--five {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.archive-grid--five .archive-card {
+  grid-column: span 2;
+}
+
+.archive-grid--five .archive-card:nth-last-child(-n + 2) {
+  grid-column: span 3;
+}
+
 .archive-signatures .archive-card::after {
   display: none;
 }
@@ -239,6 +251,15 @@
 }
 
 @media (max-width: 900px) {
+  .archive-grid--five {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .archive-grid--five .archive-card,
+  .archive-grid--five .archive-card:nth-last-child(-n + 2) {
+    grid-column: auto;
+  }
+
   .work-records .case-record {
     grid-template-columns: 0.75fr 1.4fr;
   }
@@ -246,6 +267,12 @@
   .work-records .case-media,
   .work-records .case-system {
     grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .archive-grid--five {
+    grid-template-columns: 1fr;
   }
 }
 
