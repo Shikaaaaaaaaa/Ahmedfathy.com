@@ -83,6 +83,22 @@
   color: #c5cedc;
 }
 
+.work-records .case-system .live-site-link {
+  width: max-content;
+  margin-top: 14px;
+  padding: 9px 11px;
+  border: 1px solid #77a3ff;
+  border-radius: 8px;
+  background: #78a5ff;
+  color: #08101c;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.work-records .case-system .live-site-link + a {
+  margin-top: 10px;
+}
+
 .work-records .case-media--medical img {
   filter: saturate(0.82) brightness(0.68) contrast(1.05);
 }
@@ -185,6 +201,12 @@
 .light .work-records .case-story p,
 .light .work-records .case-system p {
   color: #475568;
+}
+
+.light .work-records .case-system .live-site-link {
+  border-color: #315bb5;
+  background: #315bb5;
+  color: #fff;
 }
 
 .light .work-records .case-media--medical img {
