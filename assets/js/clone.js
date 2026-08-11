@@ -72,8 +72,31 @@
     }, { passive: true });
   }
 
-  document.querySelectorAll('.acc button').forEach(button => {
-    button.addEventListener('click', () => button.closest('.acc').classList.toggle('open'));
+  document.querySelectorAll('.acc button').forEach((button, index) => {
+    const accordion = button.closest('.acc');
+    const panel = accordion?.querySelector('.acc-body');
+    if (!accordion || !panel) return;
+
+    const buttonId = `capability-toggle-${index + 1}`;
+    const panelId = `capability-panel-${index + 1}`;
+    const syncAccordion = () => {
+      const isOpen = accordion.classList.contains('open');
+      button.setAttribute('aria-expanded', String(isOpen));
+      panel.hidden = !isOpen;
+    };
+
+    button.type = 'button';
+    button.id = buttonId;
+    button.setAttribute('aria-controls', panelId);
+    panel.id = panelId;
+    panel.setAttribute('role', 'region');
+    panel.setAttribute('aria-labelledby', buttonId);
+    syncAccordion();
+
+    button.addEventListener('click', () => {
+      accordion.classList.toggle('open');
+      syncAccordion();
+    });
   });
 
   const tabs = [...document.querySelectorAll('[data-profile-tab]')];

@@ -146,6 +146,18 @@ This log is deliberately short. Add an entry whenever a change affects positioni
 - Featured Work calls-to-action lead directly to their individual case-study pages.
 - AI Profile was removed from live navigation; the file remains retained but unlinked.
 
+## 2026-08-11 — Production UX audit fixes completed
+
+- Replaced the broken mobile navigation state with an accessible menu that exposes every primary destination, reports its open state, closes after selection, and supports Escape.
+- Added skip links and consistent keyboard focus treatment across every active page.
+- Upgraded Capability Stack accordions with stable relationships, `aria-expanded`, region labels, and synchronized hidden state.
+- Corrected the Work-page heading hierarchy without changing its visual presentation.
+- Hardened all new-tab links with `noopener` and `noreferrer` at runtime.
+- Added canonical URLs, Open Graph previews, and Twitter large-image cards to every active page.
+- Removed the retired `ai-profile.html` page rather than leaving stale public content discoverable.
+- Added `robots.txt` and `sitemap.xml` for the ten active production pages.
+- Added cache-busting versions to the shared UX scripts and styles so the deployed corrections reach returning visitors immediately.
+
 ## Open questions
 
 - Which public-safe real artifacts can be used for Offer Pipeline, Operations Portal, and Medical SaaS?

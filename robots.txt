@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ahmeedfathy.github.io/Ahmedfathy.com/sitemap.xml
