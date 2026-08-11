@@ -1,5 +1,10 @@
 # Decision and Session Log
 
+## 2026-08-11 — Footer conversion path
+
+- Added Contact to the home-page footer's Navigate group.
+- Reserved WhatsApp for the Connect group as a direct professional channel once the verified number is supplied; no placeholder or guessed phone link is published.
+
 ## 2026-08-11 — Automation Library expanded beyond WeIN
 
 - Expanded the Automation Systems page from three WeIN flows to five workflows across two product collections.
