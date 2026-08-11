@@ -2,6 +2,14 @@
 
 This log is deliberately short. Add an entry whenever a change affects positioning, content truth, visual direction, navigation, or implementation structure.
 
+## 2026-08-11 — Work page visual evidence pass
+
+- Added a dedicated visual to every flagship record on `work.html`; Shore Thing keeps its real campaign artwork, while Offer Pipeline, Operations Portal, and Medical SaaS use project-specific editorial evidence scenes built from their real workflow artifacts.
+- Added six distinct supporting-project thumbnails using one optimized sprite sheet: retail profitability, e-commerce regression, California housing, Parkinson's detection, workflow automation, and property preview.
+- Kept all generated visuals free of invented metrics, private records, branded UI, or unsupported product claims.
+- Added responsive, light-mode, reduced-motion, and accessible text alternatives for the new visual system.
+- Converted generated PNG sources to optimized WebP assets, reducing the four page assets from roughly 9 MB to about 0.5 MB total.
+
 ## 2026-08-11 — Production readiness phase started
 
 - Corrected homepage and Work-page claims so the portfolio does not imply that unfinished work is live or attach unverified workflow counts.
