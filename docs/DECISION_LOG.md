@@ -2,6 +2,15 @@
 
 This log is deliberately short. Add an entry whenever a change affects positioning, content truth, visual direction, navigation, or implementation structure.
 
+## 2026-08-11 — Production readiness phase started
+
+- Corrected homepage and Work-page claims so the portfolio does not imply that unfinished work is live or attach unverified workflow counts.
+- Operations Portal now leads Featured Work as the strongest evidence case; Offer Pipeline remains the positioning anchor.
+- Medical SaaS is labeled `In Development` everywhere and its case metadata describes the current private implementation stage.
+- Added shared, progressively enhanced evidence primitives with reduced-motion and light-mode support.
+- Shore Thing is the first flagship to use the new evidence treatment, using approved campaign artwork rather than invented product UI.
+- Added search metadata and clearer contact-form behavior across the live site.
+
 ## 2026-08-11 — Claude debate prepared
 
 - Added `docs/CLAUDE_DEBATE_BRIEF.md` with the repository context, references, factual constraints, and a three-round Claude/Codex review protocol.
