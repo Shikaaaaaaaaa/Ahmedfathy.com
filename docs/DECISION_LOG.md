@@ -2,6 +2,13 @@
 
 This log is deliberately short. Add an entry whenever a change affects positioning, content truth, visual direction, navigation, or implementation structure.
 
+## 2026-08-11 — Flagship records become full-card links
+
+- Removed the repeated `Open complete case study` text actions from all four flagship records.
+- Added one semantic, accessible full-surface link to each record so clicking anywhere opens that project's complete case study.
+- Preserved Shore Thing's `Visit live website` action above the full-card link as the only project-specific secondary destination.
+- Added visible keyboard focus treatment and confirmed pointer navigation for the full-card links.
+
 ## 2026-08-11 — Shore Thing live experience linked
 
 - Confirmed the production experience is publicly reachable at `https://shore-thing.higgsfield.app/` and returns the expected Shore Thing page.

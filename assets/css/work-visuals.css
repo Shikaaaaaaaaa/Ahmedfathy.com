@@ -3,6 +3,24 @@
   min-height: 690px;
   padding: clamp(330px, 35vw, 390px) 30px 34px;
   background: #0a111d;
+  cursor: pointer;
+}
+
+.work-records .case-record > .case-record-link {
+  position: absolute !important;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+}
+
+.work-records .case-record > .case-record-link:focus-visible {
+  outline: 2px solid #78a5ff;
+  outline-offset: -4px;
+}
+
+.work-records .case-record:has(> .case-record-link:focus-visible) {
+  border-color: #78a5ff;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.34);
 }
 
 .work-records .case-media {
@@ -84,6 +102,8 @@
 }
 
 .work-records .case-system .live-site-link {
+  position: relative;
+  z-index: 5;
   width: max-content;
   margin-top: 14px;
   padding: 9px 11px;
