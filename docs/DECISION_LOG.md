@@ -1,5 +1,12 @@
 # Decision and Session Log
 
+## 2026-08-11 — Automation Library expanded beyond WeIN
+
+- Expanded the Automation Systems page from three WeIN flows to five workflows across two product collections.
+- Kept WeIN labeled as a production/active system.
+- Added two public-safe Medical SaaS workflows covering structured intake coordination and follow-up control.
+- Labeled all Medical SaaS automation as in development and explicitly excluded diagnosis or automated clinical decision-making claims.
+
 ## 2026-08-11 — Automation showcase and live Fieldwork destination
 
 - Replaced the Workflow Library card's general GitHub-profile destination with a dedicated public-safe Automation Systems page inside the portfolio.
