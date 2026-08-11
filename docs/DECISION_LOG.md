@@ -11,7 +11,7 @@ This log is deliberately short. Add an entry whenever a change affects positioni
 
 ## 2026-08-11 — Shore Thing live experience linked
 
-- Confirmed the production experience is publicly reachable at `https://shore-thing.higgsfield.app/` and returns the expected Shore Thing page.
+- Corrected the production experience URL to the official domain: `https://shorething-eg.com/`.
 - The Shore Thing artwork and a primary `Visit live website` CTA on the Work page now open the live experience in a new tab.
 - The complete case-study link remains available as a separate secondary action.
 - Added the same live-site CTA to the Shore Thing case-study header.
