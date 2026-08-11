@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Offer Pipeline — Cinematic Scene v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sans:'Manrope',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+  --ink:#04060b;
+  --ink2:#070b13;
+  --text:#f2f5fa;
+  --dim:#8b97ad;
+  --faint:#5a6579;
+  --blue:#5b8cff;
+  --mint:#7cf5c4;
+  --amber:#ffa65c;
+  --glass:rgba(255,255,255,.045);
+  --edge:rgba(255,255,255,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto}
+body{background:var(--ink);color:var(--text);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ============ atmosphere ============ */
+.atmos{position:fixed;inset:0;pointer-events:none;z-index:0}
+.atmos .glow{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform,opacity;transition:opacity 1.2s ease}
+.g1{width:820px;height:820px;left:-14%;top:-24%;background:radial-gradient(circle,rgba(91,140,255,.20),transparent 66%)}
+.g2{width:720px;height:720px;right:-12%;top:8%;background:radial-gradient(circle,rgba(255,166,92,.16),transparent 66%);opacity:1}
+.g3{width:900px;height:900px;left:26%;bottom:-38%;background:radial-gradient(circle,rgba(124,245,196,.13),transparent 66%);opacity:0}
+.vign{position:absolute;inset:0;background:radial-gradient(130% 96% at 50% 42%,transparent 34%,rgba(4,6,11,.72) 78%,#04060b 100%)}
+.grain{position:fixed;inset:-160px;pointer-events:none;z-index:60;opacity:.30;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+
+/* ============ intro ============ */
+.intro{position:relative;z-index:2;min-height:96vh;display:flex;flex-direction:column;justify-content:center;
+  width:min(1240px,calc(100% - 64px));margin:0 auto;padding:120px 0 60px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--edge);
+  border-radius:999px;background:var(--glass);backdrop-filter:blur(14px);
+  font:9px var(--mono);letter-spacing:.2em;color:var(--dim);width:max-content}
+.eyebrow i{width:5px;height:5px;border-radius:50%;background:var(--amber);
+  box-shadow:0 0 12px 2px rgba(255,166,92,.65)}
+h1.hero{margin:34px 0 0;font-size:clamp(52px,10.2vw,158px);font-weight:800;letter-spacing:-.062em;
+  line-height:.86;text-wrap:balance}
+h1.hero em{font-style:normal;font-weight:200;color:var(--faint)}
+h1.hero b{font-weight:800;background:linear-gradient(96deg,#fff 18%,var(--blue) 62%,var(--mint));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{margin-top:38px;max-width:560px;font-size:16px;line-height:1.72;color:var(--dim);font-weight:300}
+.lede strong{color:var(--text);font-weight:600}
+.meta-row{margin-top:52px;display:flex;flex-wrap:wrap;gap:0;border-top:1px solid rgba(255,255,255,.08)}
+.meta-row div{padding:20px 34px 0 0;margin-right:34px;border-right:1px solid rgba(255,255,255,.06)}
+.meta-row div:last-child{border-right:0}
+.meta-row small{display:block;font:8px var(--mono);letter-spacing:.16em;color:var(--faint);margin-bottom:8px}
+.meta-row b{font-size:15px;font-weight:600;letter-spacing:-.02em}
+
+/* ============ cinematic stage ============ */
+.track{position:relative;height:420vh;z-index:2}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;
+  perspective:1500px;perspective-origin:50% 46%}
+.world{position:absolute;inset:0;transform-style:preserve-3d;
+  will-change:transform}
+
+/* act caption */
+.caption{position:absolute;left:50%;top:8.5vh;transform:translateX(-50%);z-index:30;text-align:center;width:min(760px,88vw)}
+.cap{position:absolute;left:0;right:0;transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1);
+  opacity:0;transform:translateY(16px);pointer-events:none}
+.cap.on{opacity:1;transform:none}
+.cap span{display:block;font:9px var(--mono);letter-spacing:.24em;color:var(--faint);margin-bottom:14px}
+.cap h2{font-size:clamp(26px,3.8vw,46px);font-weight:700;letter-spacing:-.05em;line-height:1.04}
+.cap h2 u{text-decoration:none;color:var(--amber)}
+.cap h2 mark{background:none;color:var(--mint)}
+.cap p{margin-top:14px;font-size:13px;line-height:1.7;color:var(--dim);font-weight:300;
+  max-width:440px;margin-left:auto;margin-right:auto}
+
+/* --- glass panel system --- */
+.panel{position:absolute;transform-style:preserve-3d;will-change:transform,opacity;
+  border-radius:16px;border:1px solid var(--edge);
+  background:linear-gradient(158deg,rgba(28,35,52,.86),rgba(12,17,27,.80));
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 40px 90px -20px rgba(0,0,0,.86),
+             0 8px 26px -8px rgba(0,0,0,.6),
+             inset 0 1px 0 rgba(255,255,255,.13),
+             inset 0 -1px 0 rgba(0,0,0,.35)}
+.panel::after{content:'';position:absolute;inset:0;border-radius:16px;pointer-events:none;
+  background:linear-gradient(158deg,rgba(255,255,255,.09),transparent 42%)}
+.p-head{display:flex;align-items:center;justify-content:space-between;
+  padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.p-head span{font:8px var(--mono);letter-spacing:.16em;color:var(--faint)}
+.p-head i{width:5px;height:5px;border-radius:50%;background:var(--blue);
+  box-shadow:0 0 10px 2px rgba(91,140,255,.6)}
+.p-body{padding:15px 16px}
+
+/* merchant intel panel */
+.merchant{display:flex;gap:12px;align-items:center;margin-bottom:15px}
+.avatar{width:42px;height:42px;border-radius:11px;flex:0 0 42px;
+  background:linear-gradient(140deg,#2c3f6b,#16203a);border:1px solid rgba(255,255,255,.13);
+  display:grid;place-items:center;font-size:15px;font-weight:800;color:#9fb8ff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
+.merchant b{display:block;font-size:14px;font-weight:700;letter-spacing:-.025em}
+.merchant small{display:block;margin-top:3px;font:8px var(--mono);color:var(--faint);letter-spacing:.08em}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.chip{padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.11);
+  background:rgba(255,255,255,.035);font:7px var(--mono);letter-spacing:.09em;color:#9aa7bd}
+.rows{border-top:1px solid rgba(255,255,255,.06)}
+.rows div{display:flex;justify-content:space-between;align-items:center;padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,.045)}
+.rows div:last-child{border-bottom:0}
+.rows small{font:7px var(--mono);letter-spacing:.1em;color:var(--faint)}
+.rows b{font-size:11px;font-weight:600;letter-spacing:-.01em}
+.rows b.up{color:var(--mint)}
+
+/* scoring panel */
+.score-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:9px 0;
+  border-bottom:1px solid rgba(255,255,255,.05)}
+.score-row:last-child{border-bottom:0}
+.score-row p{font-size:11px;font-weight:500;letter-spacing:-.01em;color:#c9d3e3}
+.score-row .track-bar{grid-column:1/3;height:3px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden}
+.score-row .track-bar i{display:block;height:100%;border-radius:3px;
+  background:linear-gradient(90deg,var(--blue),#8fb0ff);width:0;transition:width 1.1s cubic-bezier(.16,1,.3,1)}
+.score-row.top .track-bar i{background:linear-gradient(90deg,var(--mint),#b6ffe4)}
+.score-row em{font-style:normal;font:9px var(--mono);color:var(--faint)}
+.score-row.top em{color:var(--mint)}
+
+/* gates panel */
+.gate-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.gate-item:last-child{border-bottom:0}
+.gate-item span{font-size:11px;font-weight:500;color:#c3cddd;letter-spacing:-.01em}
+.tick{width:18px;height:18px;border-radius:50%;flex:0 0 18px;display:grid;place-items:center;
+  border:1px solid rgba(124,245,196,.4);background:rgba(124,245,196,.10);
+  font-size:9px;color:var(--mint);opacity:0;transform:scale(.4);
+  transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+.tick.on{opacity:1;transform:none}
+
+/* the manual-mess artifacts */
+.scrap{position:absolute;padding:9px 12px;border-radius:9px;
+  border:1px solid rgba(255,166,92,.26);
+  background:linear-gradient(150deg,rgba(46,34,24,.9),rgba(24,18,14,.84));
+  backdrop-filter:blur(10px);box-shadow:0 20px 44px -12px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.09);
+  will-change:transform,opacity;white-space:nowrap}
+.scrap b{display:block;font-size:10px;font-weight:600;letter-spacing:-.01em;color:#f0dcc9}
+.scrap small{display:block;margin-top:3px;font:7px var(--mono);letter-spacing:.1em;color:rgba(255,166,92,.72)}
+
+/* hero output card */
+.output{position:absolute;left:50%;top:50%;width:min(520px,86vw);
+  transform:translate(-50%,-50%) translateZ(0) scale(.9);opacity:0;
+  border-radius:20px;border:1px solid rgba(124,245,196,.3);
+  background:linear-gradient(155deg,rgba(18,38,33,.92),rgba(9,16,24,.92));
+  backdrop-filter:blur(26px);
+  box-shadow:0 60px 130px -28px rgba(0,0,0,.9),0 0 90px -20px rgba(124,245,196,.28),
+             inset 0 1px 0 rgba(255,255,255,.16);
+  transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);
+  will-change:transform,opacity;z-index:22}
+.output.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.out-top{display:flex;align-items:center;justify-content:space-between;padding:15px 22px;
+  border-bottom:1px solid rgba(255,255,255,.08)}
+.out-top span{font:8px var(--mono);letter-spacing:.2em;color:var(--mint)}
+.badge{padding:5px 10px;border-radius:999px;border:1px solid rgba(124,245,196,.34);
+  background:rgba(124,245,196,.10);font:7px var(--mono);letter-spacing:.13em;color:var(--mint)}
+.out-body{padding:24px 22px 22px}
+.out-body h3{font-size:clamp(22px,2.7vw,31px);font-weight:800;letter-spacing:-.05em;line-height:1.06}
+.out-body>p{margin-top:9px;font-size:12px;line-height:1.7;color:var(--dim);font-weight:300}
+.out-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:20px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07);border-radius:11px;overflow:hidden}
+.out-stats div{background:rgba(10,17,24,.92);padding:13px 14px}
+.out-stats small{display:block;font:7px var(--mono);letter-spacing:.13em;color:var(--faint);margin-bottom:6px}
+.out-stats b{font-size:15px;font-weight:700;letter-spacing:-.03em}
+.human{margin-top:16px;display:flex;align-items:center;gap:10px;padding:12px 14px;
+  border:1px solid rgba(255,255,255,.10);border-radius:11px;background:rgba(255,255,255,.03)}
+.human .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);flex:0 0 7px;
+  box-shadow:0 0 12px 2px rgba(124,245,196,.55)}
+.human p{font-size:11px;line-height:1.6;color:#b9c5d8;font-weight:400}
+.human p b{color:#fff;font-weight:700}
+
+/* connector rail */
+.rail-svg{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .8s}
+.rail-svg path{fill:none;stroke:rgba(124,245,196,.34);stroke-width:1;
+  stroke-dasharray:4 7;stroke-linecap:round}
+
+/* progress */
+.prog{position:fixed;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.06);z-index:70}
+.prog i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--amber),var(--blue) 52%,var(--mint));
+  box-shadow:0 0 16px rgba(91,140,255,.55)}
+
+.tail{position:relative;z-index:2;width:min(1240px,calc(100% - 64px));margin:0 auto;padding:130px 0 150px}
+.tail h2{font-size:clamp(26px,3.6vw,40px);font-weight:700;letter-spacing:-.05em;margin-bottom:18px}
+.tail p{max-width:620px;font-size:14px;line-height:1.8;color:var(--dim);font-weight:300}
+.tail .warn{margin-top:26px;padding:16px 18px;border-left:2px solid var(--amber);
+  background:rgba(255,166,92,.05);font-size:13px;line-height:1.7;color:#d8c3ac}
+
+@media(max-width:860px){
+  .meta-row div{padding-right:20px;margin-right:20px}
+  .track{height:380vh}
+  .cap h2{font-size:24px}
+  .panel{transform-origin:center}
+}
+@media(prefers-reduced-motion:reduce){
+  .track{height:auto}
+  .stage{position:static;height:auto;padding:80px 0;min-height:0}
+  .world{position:relative;height:auto;display:grid;gap:22px;padding:0 24px;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));transform:none!important}
+  .panel,.scrap{position:relative;left:auto!important;top:auto!important;transform:none!important;opacity:1!important;width:auto!important}
+  .scrap{display:none}
+  .output{position:relative;left:auto;top:auto;transform:none!important;opacity:1;width:auto;grid-column:1/-1}
+  .caption{position:relative;left:auto;top:auto;transform:none;margin:0 auto 40px}
+  .cap{position:relative;opacity:1;transform:none;margin-bottom:26px}
+  .tick{opacity:1;transform:none}
+  .rail-svg{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="atmos">
+  <div class="glow g1" id="g1"></div>
+  <div class="glow g2" id="g2"></div>
+  <div class="glow g3" id="g3"></div>
+  <div class="vign"></div>
+</div>
+<div class="grain"></div>
+
+<section class="intro">
+  <div class="eyebrow"><i></i> CONCEPT · SCENE 01 OF 04 · WEIN</div>
+  <h1 class="hero"><em>From</em> forty tabs<br><b>to one decision.</b></h1>
+  <p class="lede">The offer specialist used to assemble every deal by hand — menus, competitor tabs, pricing sheets, duplicate checks. <strong>Now the pipeline does the assembly, and they do the judgement.</strong></p>
+  <div class="meta-row">
+    <div><small>ROLE</small><b>Product owner + engineer</b></div>
+    <div><small>SYSTEM</small><b>Agentic offer pipeline</b></div>
+    <div><small>STACK</small><b>n8n · LLMs · Python · RAG</b></div>
+  </div>
+</section>
+
+<div class="track" id="track">
+  <div class="stage">
+    <div class="world" id="world">
+
+      <svg class="rail-svg" id="railSvg" preserveAspectRatio="none"><path id="railPath" d=""/></svg>
+
+      <!-- manual-mess scraps -->
+      <div class="scrap" data-sx="6"  data-sy="16" data-z="-160"><b>Provider menu.pdf</b><small>PAGE 3 OF 11</small></div>
+      <div class="scrap" data-sx="72" data-sy="9"  data-z="-90"><b>Competitor tab</b><small>WAFFARHA / DINING</small></div>
+      <div class="scrap" data-sx="84" data-sy="62" data-z="-230"><b>v7_FINAL_v2.xlsx</b><small>PRICING SHEET</small></div>
+      <div class="scrap" data-sx="12" data-sy="72" data-z="-60"><b>WhatsApp thread</b><small>12 UNREAD</small></div>
+      <div class="scrap" data-sx="46" data-sy="84" data-z="-190"><b>Duplicate check</b><small>BY HAND</small></div>
+      <div class="scrap" data-sx="62" data-sy="30" data-z="-300"><b>Maps lookup</b><small>VERIFY LOCATION</small></div>
+      <div class="scrap" data-sx="26" data-sy="42" data-z="-120"><b>Draft copy</b><small>REWRITE #4</small></div>
+
+      <!-- panel 1: intel -->
+      <div class="panel" id="pIntel" data-fx="9" data-fy="26" data-z="-40" style="width:288px">
+        <div class="p-head"><span>01 · PROVIDER INTEL</span><i></i></div>
+        <div class="p-body">
+          <div class="merchant">
+            <div class="avatar">N</div>
+            <div><b>Nomad Café</b><small>NEW CAIRO · DINING</small></div>
+          </div>
+          <div class="chips"><span class="chip">FAMILY</span><span class="chip">WEEKEND</span><span class="chip">DINE-IN</span><span class="chip">MID-TIER</span></div>
+          <div class="rows">
+            <div><small>MENU PARSED</small><b class="up">11 pages</b></div>
+            <div><small>TOP SELLERS</small><b>6 items</b></div>
+            <div><small>COMPETITOR SET</small><b>4 matched</b></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- panel 2: scoring -->
+      <div class="panel" id="pScore" data-fx="66" data-fy="20" data-z="-150" style="width:300px">
+        <div class="p-head"><span>03 · CONCEPT SCORING</span><i></i></div>
+        <div class="p-body">
+          <div class="score-row top"><p>Weekend family dining — 20%</p><em>0.91</em><div class="track-bar"><i data-w="91"></i></div></div>
+          <div class="score-row"><p>Set menu for two</p><em>0.74</em><div class="track-bar"><i data-w="74"></i></div></div>
+          <div class="score-row"><p>Breakfast bundle</p><em>0.58</em><div class="track-bar"><i data-w="58"></i></div></div>
+          <div class="score-row"><p>Late-night dessert</p><em>0.41</em><div class="track-bar"><i data-w="41"></i></div></div>
+        </div>
+      </div>
+
+      <!-- panel 3: gates -->
+      <div class="panel" id="pGates" data-fx="38" data-fy="66" data-z="-90" style="width:270px">
+        <div class="p-head"><span>05 · VALIDATION GATES</span><i></i></div>
+        <div class="p-body">
+          <div class="gate-item"><span class="tick" data-t="0">✓</span><span>Merchant grounded</span></div>
+          <div class="gate-item"><span class="tick" data-t="1">✓</span><span>No duplicate offer</span></div>
+          <div class="gate-item"><span class="tick" data-t="2">✓</span><span>Location verified</span></div>
+        </div>
+      </div>
+
+      <!-- hero output -->
+      <div class="output" id="output">
+        <div class="out-top"><span>REVIEW-READY OUTPUT</span><div class="badge">GROUNDED</div></div>
+        <div class="out-body">
+          <h3>Weekend Family Dining — 20% off</h3>
+          <p>Assembled from the parsed menu, scored against the competitor set, and checked through every validation gate before a human ever sees it.</p>
+          <div class="out-stats">
+            <div><small>CONFIDENCE</small><b>0.91</b></div>
+            <div><small>GATES</small><b>3 / 3</b></div>
+            <div><small>SOURCES</small><b>Cited</b></div>
+          </div>
+          <div class="human"><span class="dot"></span><p><b>The specialist decides.</b> The pipeline never publishes on its own — approval is the human's job.</p></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="caption" id="caption">
+      <div class="cap" data-c="0"><span>ACT I — BEFORE</span><h2>Every offer was <u>assembled by hand.</u></h2><p>Menus, competitor tabs, pricing sheets, duplicate checks — reassembled from scratch for each provider.</p></div>
+      <div class="cap" data-c="1"><span>ACT II — THE SYSTEM</span><h2>One pipeline absorbs the assembly.</h2><p>Intel, concept generation, scoring, drafting and validation become explicit stages with data contracts between them.</p></div>
+      <div class="cap" data-c="2"><span>ACT III — AFTER</span><h2>The specialist is <mark>promoted to judgement.</mark></h2><p>The grinding is automated. The decision stays human — by design, not by omission.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tail">
+  <h2>What this scene is proving</h2>
+  <p>That a project scene can carry real production polish — depth, material, lighting, motion weight — while every element on screen still maps to something the system actually does. No abstract holograms, no decorative particles. The panels are the real stages; the gates are the real gates.</p>
+  <div class="warn"><b>Placeholder discipline:</b> confidence scores, page counts and item counts shown here are illustrative. Replace with real figures or remove the stat rows before this ships — no invented metrics.</div>
+</div>
+
+<div class="prog"><i id="prog"></i></div>
+
+<script>
+(function(){
+  var track=document.getElementById('track'),world=document.getElementById('world'),
+      output=document.getElementById('output'),caps=[].slice.call(document.querySelectorAll('.cap')),
+      scraps=[].slice.call(document.querySelectorAll('.scrap')),
+      panels=[].slice.call(document.querySelectorAll('.panel')),
+      ticks=[].slice.call(document.querySelectorAll('.tick')),
+      bars=[].slice.call(document.querySelectorAll('.track-bar i')),
+      prog=document.getElementById('prog'),
+      g2=document.getElementById('g2'),g3=document.getElementById('g3'),
+      railSvg=document.getElementById('railSvg'),railPath=document.getElementById('railPath');
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mx=0,my=0,tmx=0,tmy=0;
+
+  function clamp(v,a,b){return Math.min(b,Math.max(a,v));}
+  function seg(p,a,b){return clamp((p-a)/(b-a),0,1);}
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+  function outQ(t){return 1-Math.pow(1-t,4);}
+
+  // place elements from data attrs (percent of viewport)
+  function layout(){
+    var w=window.innerWidth,h=window.innerHeight;
+    scraps.forEach(function(s){
+      s._x=parseFloat(s.dataset.sx)/100*w;
+      s._y=parseFloat(s.dataset.sy)/100*h;
+      s._z=parseFloat(s.dataset.z);
+      s.style.left='0';s.style.top='0';
+    });
+    panels.forEach(function(p){
+      p._x=parseFloat(p.dataset.fx)/100*w;
+      p._y=parseFloat(p.dataset.fy)/100*h;
+      p._z=parseFloat(p.dataset.z);
+      p.style.left='0';p.style.top='0';
+    });
+    railSvg.setAttribute('viewBox','0 0 '+w+' '+h);
+  }
+
+  function render(p){
+    var appear = seg(p,0.02,0.20);   // scraps drift in
+    var absorb = seg(p,0.28,0.60);   // scraps get consumed
+    var gather = seg(p,0.34,0.72);   // panels converge
+    var resolve= seg(p,0.70,0.92);   // output emerges
+
+    // ---- scraps: float in, then get pulled to centre and dissolve
+    var cx=window.innerWidth/2, cy=window.innerHeight/2;
+    scraps.forEach(function(s,i){
+      var inT=outQ(clamp(appear*1.5-i*0.06,0,1));
+      var absT=ease(clamp(absorb*1.4-i*0.055,0,1));
+      var x=s._x + (cx-s._x)*absT;
+      var y=s._y + (cy-s._y)*absT;
+      var z=s._z*(1-inT*0.55) + absT*260;
+      var sc=(0.86+0.14*inT)*(1-absT*0.55);
+      var rot=(i%2?1:-1)*(5-inT*4)*(1-absT);
+      s.style.transform='translate3d('+x+'px,'+y+'px,'+z+'px) rotateZ('+rot+'deg) scale('+sc+')';
+      s.style.opacity=String(inT*(1-absT));
+    });
+
+    // ---- panels: drift in from depth, converge toward a clean arc
+    var targets=[[0.19,0.50],[0.81,0.50],[0.50,0.79]];
+    panels.forEach(function(pl,i){
+      var t=ease(clamp(gather*1.25-i*0.10,0,1));
+      var tx=targets[i][0]*window.innerWidth, ty=targets[i][1]*window.innerHeight;
+      var x=pl._x+(tx-pl._x)*t;
+      var y=pl._y+(ty-pl._y)*t;
+      var z=pl._z+(120-pl._z)*t;
+      var ry=(i===0?14:i===1?-14:0)*(1-t*0.55);
+      var fade=outQ(seg(p,0.16+i*0.04,0.40+i*0.04));
+      // panels recede behind the hero card at the end
+      var recede=ease(resolve);
+      var sc=(0.92+0.08*t)*(1-recede*0.16);
+      pl.style.transform='translate3d('+(x-(i===2?135:i===1?150:144))+'px,'+(y-110)+'px,'+(z-recede*320)+'px) rotateY('+ry+'deg) scale('+sc+')';
+      pl.style.opacity=String(fade*(1-recede*0.72));
+    });
+
+    // ---- score bars fill as panel 2 lands
+    var barT=seg(p,0.42,0.58);
+    bars.forEach(function(b){ b.style.width=(barT>0.25? b.dataset.w:'0')+'%'; });
+
+    // ---- gates tick in sequence
+    var gT=seg(p,0.56,0.74);
+    ticks.forEach(function(tk,i){ tk.classList.toggle('on', gT > 0.12+i*0.26); });
+
+    // ---- rail
+    railSvg.style.opacity=String(seg(p,0.40,0.56)*(1-ease(resolve)));
+    var w=window.innerWidth,h=window.innerHeight;
+    railPath.setAttribute('d','M '+(0.19*w)+' '+(0.50*h)+' C '+(0.34*w)+' '+(0.30*h)+' '+(0.66*w)+' '+(0.30*h)+' '+(0.81*w)+' '+(0.50*h)+
+                              ' M '+(0.19*w)+' '+(0.50*h)+' C '+(0.28*w)+' '+(0.72*h)+' '+(0.40*w)+' '+(0.79*h)+' '+(0.50*w)+' '+(0.79*h)+
+                              ' M '+(0.81*w)+' '+(0.50*h)+' C '+(0.72*w)+' '+(0.72*h)+' '+(0.60*w)+' '+(0.79*h)+' '+(0.50*w)+' '+(0.79*h));
+
+    // ---- hero output
+    output.classList.toggle('on',resolve>0.10);
+
+    // ---- captions
+    var act = p<0.30?0:(p<0.68?1:2);
+    caps.forEach(function(c,i){ c.classList.toggle('on',i===act); });
+
+    // ---- atmosphere shifts warm -> cool -> mint
+    g2.style.opacity=String(1-seg(p,0.22,0.58));
+    g3.style.opacity=String(seg(p,0.58,0.86));
+
+    prog.style.width=(p*100).toFixed(2)+'%';
+  }
+
+  function onScroll(){
+    var r=track.getBoundingClientRect();
+    var total=track.offsetHeight-window.innerHeight;
+    render(clamp(-r.top/total,0,1));
+  }
+
+  // dev hook: drive the timeline without scrolling (visual QA only).
+  // ?p=0.45 pins the scene at that point and ignores scroll.
+  window.__scene=function(v){ layout(); render(clamp(v,0,1)); };
+  var pinned=new URLSearchParams(location.search).get('p');
+
+  // parallax on the whole world
+  function loop(){
+    mx+=(tmx-mx)*0.06; my+=(tmy-my)*0.06;
+    world.style.transform='translate3d('+(mx*-26)+'px,'+(my*-18)+'px,0) rotateY('+(mx*3.2)+'deg) rotateX('+(my*-2.2)+'deg)';
+    requestAnimationFrame(loop);
+  }
+
+  if(reduce){
+    layout();
+    ticks.forEach(function(t){t.classList.add('on');});
+    bars.forEach(function(b){b.style.width=b.dataset.w+'%';});
+    caps.forEach(function(c){c.classList.add('on');});
+    output.classList.add('on');
+  }else if(pinned!==null){
+    layout(); render(clamp(parseFloat(pinned)||0,0,1)); loop();
+    window.addEventListener('resize',function(){layout();render(clamp(parseFloat(pinned)||0,0,1));});
+  }else{
+    layout(); onScroll(); loop();
+    var ticking=false;
+    window.addEventListener('scroll',function(){
+      if(!ticking){ticking=true;requestAnimationFrame(function(){onScroll();ticking=false;});}
+    },{passive:true});
+    window.addEventListener('resize',function(){layout();onScroll();});
+    window.addEventListener('mousemove',function(e){
+      tmx=(e.clientX/window.innerWidth-0.5)*2;
+      tmy=(e.clientY/window.innerHeight-0.5)*2;
+    },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Offer Pipeline — Operator Scene (concept)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sans:'Manrope',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+  --bg:#090d14;
+  --panel:#111825;
+  --line:#2b3547;
+  --text:#eef2f8;
+  --muted:#8d9ab1;
+  --accent:#6f9bff;
+  --warn:#e8996a;
+  --good:#5ee0a3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+
+/* ---------- demo chrome (not part of the scene) ---------- */
+.demo-note{max-width:900px;margin:0 auto;padding:70px 28px 0}
+.demo-note span{display:inline-block;padding:6px 10px;border:1px solid var(--line);border-radius:999px;
+  font:8px var(--mono);letter-spacing:.14em;color:var(--warn)}
+.demo-note h1{font-size:clamp(30px,4.6vw,46px);letter-spacing:-.05em;line-height:1.04;margin:20px 0 14px}
+.demo-note p{max-width:620px;font-size:13px;line-height:1.75;color:var(--muted)}
+.scroll-hint{margin:46px auto 0;max-width:900px;padding:0 28px;font:8px var(--mono);letter-spacing:.14em;color:#5d6a82}
+
+/* ---------- scroll driver ---------- */
+.track{height:340vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+.stage-inner{width:min(1180px,calc(100% - 56px));margin:0 auto;
+  display:grid;grid-template-columns:.72fr 1.4fr;gap:56px;align-items:center}
+
+/* ---------- left: the operator ---------- */
+.operator{position:relative}
+.phase-tag{display:flex;align-items:center;gap:9px;font:8px var(--mono);letter-spacing:.16em;margin-bottom:20px}
+.phase-tag i{width:6px;height:6px;border-radius:50%;background:var(--warn);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--warn) 14%,transparent);transition:background .5s,box-shadow .5s}
+.stage[data-phase="3"] .phase-tag i{background:var(--good);box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 14%,transparent)}
+.phase-tag b{font-weight:400;color:var(--muted)}
+
+.figure-wrap{width:100%;max-width:290px}
+svg.figure{width:100%;height:auto;display:block;overflow:visible}
+.slump{transform-origin:100px 150px;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.head-grp{transform-origin:100px 78px;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+
+.op-role{font-size:19px;font-weight:700;letter-spacing:-.03em;margin:26px 0 6px}
+.op-sub{font:8px var(--mono);letter-spacing:.12em;color:#66738c}
+
+.readouts{margin-top:26px;border-top:1px solid var(--line);padding-top:18px;position:relative;min-height:92px}
+.readout{position:absolute;left:0;right:0;transition:opacity .55s,transform .55s}
+.readout.out{opacity:0;transform:translateY(-8px);pointer-events:none}
+.readout div{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0}
+.readout div+div{border-top:1px solid #1c2534}
+.readout small{font:8px var(--mono);letter-spacing:.1em;color:#66738c}
+.readout b{font-size:13px;font-weight:600;letter-spacing:-.02em}
+.readout.before b{color:var(--warn)}
+.readout.after b{color:var(--good)}
+
+/* ---------- right: the work ---------- */
+.work{position:relative;height:440px}
+.work-label{position:absolute;top:-34px;left:0;font:8px var(--mono);letter-spacing:.14em;color:#5d6a82}
+
+/* chaos cards */
+.chaos{position:absolute;inset:0}
+.ccard{position:absolute;width:132px;padding:11px 12px;border:1px solid #3a4256;border-radius:9px;
+  background:linear-gradient(160deg,#1a1f2c,#141924);box-shadow:0 12px 28px #0006;
+  will-change:transform,opacity}
+.ccard b{display:block;font-size:10px;font-weight:600;letter-spacing:-.01em;margin-bottom:5px}
+.ccard span{display:block;font:7px var(--mono);letter-spacing:.06em;color:#78859c}
+.ccard i{position:absolute;top:9px;right:10px;width:5px;height:5px;border-radius:50%;background:var(--warn);opacity:.75}
+
+/* pipeline rail */
+.rail{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+  display:grid;grid-template-columns:repeat(5,1fr);gap:10px;transition:opacity .6s}
+.station{position:relative;padding:16px 12px 14px;border:1px solid #2b3547;border-radius:11px;
+  background:#0f1520;transition:border-color .45s,background .45s,transform .45s,box-shadow .45s}
+.station small{display:block;font:7px var(--mono);letter-spacing:.12em;color:#5d6a82;margin-bottom:9px;transition:color .45s}
+.station b{display:block;font-size:12px;font-weight:600;letter-spacing:-.02em;color:#7d8ba3;transition:color .45s}
+.station .bar{margin-top:11px;height:2px;border-radius:2px;background:#232c3c;overflow:hidden}
+.station .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .5s ease}
+.station.on{border-color:#4a6fb8;background:#131c2c;box-shadow:0 10px 30px #1b39751f}
+.station.on small{color:var(--accent)}
+.station.on b{color:var(--text)}
+.station.on .bar i{width:100%}
+.station.done{border-color:#2f4a3f;background:#101b18}
+.station.done small{color:var(--good)}
+.station.done .bar i{width:100%;background:var(--good)}
+
+/* output */
+.output{position:absolute;left:0;right:0;bottom:-4px;display:flex;gap:12px;align-items:flex-end;
+  opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
+.output.show{opacity:1;transform:none}
+.out-card{flex:1;padding:16px 18px;border:1px solid #2f4a3f;border-radius:12px;
+  background:linear-gradient(150deg,#101b18,#0d1621);box-shadow:0 18px 44px #0007}
+.out-card small{font:7px var(--mono);letter-spacing:.13em;color:var(--good)}
+.out-card b{display:block;font-size:16px;font-weight:700;letter-spacing:-.03em;margin:9px 0 4px}
+.out-card span{font:8px var(--mono);color:#78859c}
+.gates{display:grid;gap:6px;width:186px}
+.gate{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #263443;border-radius:8px;
+  background:#0e1620;font:7px var(--mono);letter-spacing:.06em;color:#68758b;
+  opacity:0;transform:translateX(10px);transition:opacity .45s,transform .45s,border-color .45s,color .45s}
+.gate.on{opacity:1;transform:none;border-color:#2f4a3f;color:#9fb3ad}
+.gate em{font-style:normal;color:var(--good);font-size:9px}
+
+/* human gate callout */
+.human-gate{position:absolute;right:0;top:-30px;padding:7px 11px;border:1px solid #3c5a4e;border-radius:999px;
+  background:#0f1a17;font:7px var(--mono);letter-spacing:.12em;color:var(--good);
+  opacity:0;transform:translateY(-6px);transition:opacity .5s,transform .5s}
+.human-gate.show{opacity:1;transform:none}
+
+.tail{max-width:900px;margin:0 auto;padding:90px 28px 120px}
+.tail h2{font-size:26px;letter-spacing:-.04em;margin-bottom:12px}
+.tail p{max-width:620px;font-size:13px;line-height:1.75;color:var(--muted)}
+.tail ul{margin:18px 0 0 18px}
+.tail li{font-size:13px;line-height:1.9;color:var(--muted)}
+
+@media(max-width:900px){
+  .stage-inner{grid-template-columns:1fr;gap:34px}
+  .figure-wrap{max-width:170px}
+  .work{height:380px}
+  .rail{grid-template-columns:repeat(5,1fr);gap:5px}
+  .station{padding:11px 7px}
+  .station b{font-size:9px}
+  .output{flex-direction:column;align-items:stretch}
+  .gates{width:auto;grid-template-columns:repeat(3,1fr)}
+}
+@media(prefers-reduced-motion:reduce){
+  .track{height:auto}
+  .stage{position:static;height:auto;padding:70px 0}
+  .ccard{display:none}
+  .station,.output,.gate,.human-gate{opacity:1!important;transform:none!important}
+  .readout{position:static;opacity:1!important;transform:none!important;margin-bottom:16px}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-note">
+  <span>CONCEPT DEMO · NUMBERS ARE PLACEHOLDERS</span>
+  <h1>The operator, not the algorithm.</h1>
+  <p>A test of the narrative direction: each flagship project is told through the person whose job it changed — and the story ends with them <em>deciding</em>, not relaxing. Scroll to run the pipeline.</p>
+</div>
+<div class="scroll-hint">↓ SCROLL TO RUN</div>
+
+<div class="track" id="track">
+  <div class="stage" id="stage" data-phase="1">
+    <div class="stage-inner">
+
+      <!-- LEFT: operator -->
+      <div class="operator">
+        <div class="phase-tag"><i></i><b id="phaseLabel">BEFORE — MANUAL</b></div>
+
+        <div class="figure-wrap">
+          <svg class="figure" viewBox="0 0 200 210" aria-label="Illustration of the offer specialist at a desk">
+            <!-- monitor -->
+            <rect x="118" y="86" width="72" height="50" rx="5" fill="#121a27" stroke="#2b3547"/>
+            <rect id="screenGlow" x="118" y="86" width="72" height="50" rx="5" fill="#e8996a" opacity=".08"/>
+            <rect x="126" y="95" width="40" height="3" rx="1.5" fill="#39445a"/>
+            <rect x="126" y="103" width="52" height="3" rx="1.5" fill="#2e3849"/>
+            <rect x="126" y="111" width="30" height="3" rx="1.5" fill="#2e3849"/>
+            <rect x="148" y="136" width="12" height="8" fill="#1b2331"/>
+            <!-- desk -->
+            <rect x="10" y="150" width="180" height="4" rx="2" fill="#39445a"/>
+            <!-- figure -->
+            <g class="slump" id="slump">
+              <path d="M62 150 C62 118 78 106 96 106 C114 106 130 118 130 150 Z" fill="#1c2637" stroke="#39445a" stroke-width="1.2"/>
+              <path id="armL" d="M70 124 C58 134 56 144 60 150" fill="none" stroke="#39445a" stroke-width="5" stroke-linecap="round"/>
+              <path id="armR" d="M122 124 C134 132 138 142 134 150" fill="none" stroke="#39445a" stroke-width="5" stroke-linecap="round"/>
+              <g class="head-grp" id="headGrp">
+                <circle cx="96" cy="82" r="17" fill="#233045" stroke="#4a566d" stroke-width="1.2"/>
+                <path d="M80 76 C84 66 108 66 112 76" fill="#2f3d55"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="op-role">The Offer Specialist</div>
+        <div class="op-sub">WEIN · OPERATIONS</div>
+
+        <div class="readouts">
+          <div class="readout before" id="rBefore">
+            <div><small>SOURCES CHECKED BY HAND</small><b data-ph>~40 tabs</b></div>
+            <div><small>TIME PER OFFER</small><b data-ph>hours</b></div>
+            <div><small>SPENT DECIDING</small><b>almost none</b></div>
+          </div>
+          <div class="readout after out" id="rAfter">
+            <div><small>RESEARCH + DRAFTING</small><b>automated</b></div>
+            <div><small>TIME PER OFFER</small><b data-ph>minutes</b></div>
+            <div><small>SPENT DECIDING</small><b>all of it</b></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: the work -->
+      <div class="work" id="work">
+        <div class="work-label" id="workLabel">THE WORK — SCATTERED</div>
+
+        <div class="chaos" id="chaos"></div>
+
+        <div class="rail" id="rail">
+          <div class="station"><small>01</small><b>Intel</b><div class="bar"><i></i></div></div>
+          <div class="station"><small>02</small><b>Concepts</b><div class="bar"><i></i></div></div>
+          <div class="station"><small>03</small><b>Score</b><div class="bar"><i></i></div></div>
+          <div class="station"><small>04</small><b>Create</b><div class="bar"><i></i></div></div>
+          <div class="station"><small>05</small><b>Review</b><div class="bar"><i></i></div></div>
+        </div>
+
+        <div class="human-gate" id="humanGate">◆ HUMAN DECIDES HERE</div>
+
+        <div class="output" id="output">
+          <div class="out-card">
+            <small>REVIEW-READY OUTPUT</small>
+            <b>Cairo Weekend Dining — 20% off</b>
+            <span>GROUNDED · AWAITING SPECIALIST APPROVAL</span>
+          </div>
+          <div class="gates">
+            <div class="gate" data-g="0"><em>✓</em> Merchant grounded</div>
+            <div class="gate" data-g="1"><em>✓</em> No duplicate</div>
+            <div class="gate" data-g="2"><em>✓</em> Location verified</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="tail">
+  <h2>What this is testing</h2>
+  <p>Three ideas, all reversible — judge them separately:</p>
+  <ul>
+    <li><b>Operator-led framing.</b> The story belongs to the person whose job changed, not to the tech stack.</li>
+    <li><b>Promoted, not relaxed.</b> The pipeline ends at a human review gate — which is how the real system is actually built.</li>
+    <li><b>Scroll as the run button.</b> The visitor triggers the pipeline themselves instead of watching a loop.</li>
+  </ul>
+  <p style="margin-top:22px"><b style="color:var(--warn)">Every number marked in amber/green is a placeholder</b> — replace with real figures before this ships, or drop the metric rows entirely.</p>
+</div>
+
+<script>
+(function(){
+  var track=document.getElementById('track'),stage=document.getElementById('stage'),
+      chaos=document.getElementById('chaos'),rail=document.getElementById('rail'),
+      stations=[].slice.call(rail.children),output=document.getElementById('output'),
+      gates=[].slice.call(document.querySelectorAll('.gate')),
+      rBefore=document.getElementById('rBefore'),rAfter=document.getElementById('rAfter'),
+      slump=document.getElementById('slump'),headGrp=document.getElementById('headGrp'),
+      screenGlow=document.getElementById('screenGlow'),humanGate=document.getElementById('humanGate'),
+      phaseLabel=document.getElementById('phaseLabel'),workLabel=document.getElementById('workLabel'),
+      armL=document.getElementById('armL'),armR=document.getElementById('armR');
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // the manual mess: what the specialist actually juggled
+  var CARDS=[
+    {t:'Provider menu.pdf', s:'PAGE 3 OF 11',      x:4,  y:6,  r:-7},
+    {t:'Competitor tab',    s:'WAFFARHA / DINING', x:47, y:0,  r:5},
+    {t:'WhatsApp thread',   s:'12 UNREAD',         x:76, y:12, r:-4},
+    {t:'Pricing sheet',     s:'V7_FINAL_v2.xlsx',  x:14, y:38, r:6},
+    {t:'Past offers',       s:'CHECK DUPLICATES',  x:58, y:34, r:-6},
+    {t:'Location check',    s:'MAPS · MANUAL',     x:85, y:46, r:8},
+    {t:'Owner email',       s:'AWAITING REPLY',    x:2,  y:70, r:4},
+    {t:'Draft copy',        s:'REWRITE #4',        x:38, y:72, r:-5},
+    {t:'Category rules',    s:'INTERNAL DOC',      x:70, y:78, r:7}
+  ];
+  var els=CARDS.map(function(c){
+    var d=document.createElement('div');
+    d.className='ccard';
+    d.innerHTML='<i></i><b>'+c.t+'</b><span>'+c.s+'</span>';
+    d.style.left=c.x+'%'; d.style.top=c.y+'%';
+    chaos.appendChild(d);
+    return d;
+  });
+
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function clamp(v,a,b){return Math.min(b,Math.max(a,v));}
+  function seg(p,a,b){return clamp((p-a)/(b-a),0,1);}
+
+  function render(p){
+    // ---- phase 1: chaos (0 - .30) | phase 2: run (.30 - .70) | phase 3: decide (.70 - 1)
+    var pull  = seg(p,0.26,0.58);   // cards get swept into the rail
+    var run   = seg(p,0.34,0.74);   // stations light in sequence
+    var done  = seg(p,0.70,0.88);   // output + gates
+    var relief= seg(p,0.44,0.80);   // posture recovers
+
+    // cards fly toward rail entry and dissolve
+    els.forEach(function(el,i){
+      var c=CARDS[i];
+      var stagger=clamp(pull*1.5 - i*0.05,0,1);
+      var ease=stagger*stagger*(3-2*stagger);
+      var tx=lerp(0,(6-c.x)*4.2,ease);
+      var ty=lerp(0,(50-c.y)*2.6,ease);
+      var sc=lerp(1,0.42,ease);
+      var rot=lerp(c.r,0,ease);
+      el.style.transform='translate('+tx+'px,'+ty+'px) rotate('+rot+'deg) scale('+sc+')';
+      el.style.opacity=String(1-ease);
+    });
+
+    // stations
+    stations.forEach(function(st,i){
+      var start=i/stations.length, end=(i+1)/stations.length;
+      var local=seg(run,start,end);
+      st.classList.toggle('on',local>0 && local<1);
+      st.classList.toggle('done',local>=1);
+    });
+    rail.style.opacity=String(lerp(0.28,1,seg(p,0.20,0.40)));
+
+    // output + gates
+    output.classList.toggle('show',done>0.05);
+    gates.forEach(function(g,i){ g.classList.toggle('on', done > 0.15+i*0.22); });
+    humanGate.classList.toggle('show',done>0.55);
+
+    // posture: slumped -> upright, head lifts
+    var slumpAmt=1-relief;
+    slump.style.transform='rotate('+(slumpAmt*7).toFixed(2)+'deg) translateY('+(slumpAmt*6).toFixed(2)+'px)';
+    headGrp.style.transform='translateY('+(slumpAmt*9).toFixed(2)+'px) rotate('+(slumpAmt*9).toFixed(2)+'deg)';
+    armL.setAttribute('stroke','#39445a');
+    screenGlow.setAttribute('fill', relief>0.5 ? '#5ee0a3' : '#e8996a');
+    screenGlow.setAttribute('opacity', String(lerp(0.10,0.16,relief)));
+
+    // readouts
+    rBefore.classList.toggle('out',relief>0.55);
+    rAfter.classList.toggle('out',relief<=0.55);
+
+    // labels
+    var phase = p<0.30?1:(p<0.70?2:3);
+    stage.setAttribute('data-phase',String(phase));
+    phaseLabel.textContent = phase===1?'BEFORE — MANUAL':(phase===2?'RUNNING — ORCHESTRATED':'AFTER — SPECIALIST DECIDES');
+    workLabel.textContent  = phase===1?'THE WORK — SCATTERED':(phase===2?'THE WORK — ONE PIPELINE':'THE WORK — ONE GROUNDED OFFER');
+  }
+
+  function onScroll(){
+    var r=track.getBoundingClientRect();
+    var total=track.offsetHeight-window.innerHeight;
+    var p=clamp(-r.top/total,0,1);
+    render(p);
+  }
+
+  if(reduce){ render(1); }
+  else{
+    var ticking=false;
+    window.addEventListener('scroll',function(){
+      if(!ticking){ ticking=true; requestAnimationFrame(function(){ onScroll(); ticking=false; }); }
+    },{passive:true});
+    window.addEventListener('resize',onScroll);
+    onScroll();
+  }
+})();
+</script>
+</body>
+</html>

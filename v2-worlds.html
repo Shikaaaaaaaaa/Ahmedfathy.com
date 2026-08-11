@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10100f">
+  <meta name="description" content="Explore four systems built by Ahmed Fathy: WeIN Offer Pipeline, WeIN Portal, a SaaS in development, and Shore Thing.">
+  <title>Ahmed Fathy — Four Working Worlds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/scenarios.css">
+  <script src="assets/js/scenarios.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#worlds">Skip to projects</a>
+  <header>
+    <a class="brand" href="#top"><b>AF</b><span>Ahmed Fathy<small>AI Product Engineer · Cairo</small></span></a>
+    <div class="world-count"><i data-world-dot></i><span data-world-label>00 / INTRO</span></div>
+    <a class="contact-link" href="mailto:af8847492@gmail.com">Contact ↗</a>
+  </header>
+
+  <main id="top">
+    <section class="intro scene is-visible" data-world="00 / INTRO">
+      <div class="intro-noise"></div>
+      <p class="intro-kicker">A portfolio you operate</p>
+      <h1>Four projects.<br><em>Four different worlds.</em></h1>
+      <p class="intro-copy">Don’t read a grid of cards. Enter each system, trigger the workflow, and see what I actually build.</p>
+      <a class="enter" href="#worlds"><span>Enter the first world</span><b>↓</b></a>
+      <div class="orbit" aria-hidden="true">
+        <div class="orbit-core"><span>AF</span><small>OPERATOR</small></div>
+        <span class="satellite s1">OFFER PIPELINE</span>
+        <span class="satellite s2">OPS PORTAL</span>
+        <span class="satellite s3">SAAS / BUILDING</span>
+        <span class="satellite s4">SHORE THING</span>
+      </div>
+      <div class="intro-index"><span>01 AUTOMATE</span><span>02 OPERATE</span><span>03 BUILD</span><span>04 EXPERIENCE</span></div>
+    </section>
+
+    <div id="worlds">
+      <section class="world offer-world" data-world="01 / OFFER PIPELINE">
+        <div class="world-copy">
+          <p class="world-number">WORLD 01 · AGENTIC AI</p>
+          <h2>WeIN<br><em>Offer Pipeline</em></h2>
+          <p>A manual advisor-to-review process became a multi-agent production line. Retrieval informs it. Scoring shapes it. A deterministic gate checks every claim before delivery.</p>
+          <div class="facts"><span><b>INPUT</b> Provider intake</span><span><b>PROOF</b> Grounded offer</span><span><b>STACK</b> n8n · LLMs · pgvector</span></div>
+          <button class="world-action violet" data-run-offer>Run one offer <span>→</span></button>
+        </div>
+        <div class="world-stage offer-stage" aria-label="Interactive offer generation scenario">
+          <div class="provider-slip"><small>PROVIDER / 0842</small><strong>Beach club</strong><span>Group · family · solo</span></div>
+          <div class="agent-line">
+            <div class="agent is-ready" data-agent><i>01</i><b>INTEL</b><span>Searching 48 offers</span></div>
+            <div class="handoff"><i></i></div>
+            <div class="agent" data-agent><i>02</i><b>CONCEPT</b><span>Building packages</span></div>
+            <div class="handoff"><i></i></div>
+            <div class="agent" data-agent><i>03</i><b>SCORE</b><span>Testing fit</span></div>
+            <div class="handoff"><i></i></div>
+            <div class="agent gate" data-agent><i>04</i><b>VERIFY</b><span>Grounding claims</span></div>
+          </div>
+          <div class="offer-output" data-offer-output><small>OUTPUT / WAITING</small><strong>Your verified offer will assemble here.</strong><span>0 claims checked</span></div>
+          <div class="stage-caption">A real workflow, compressed into 12 seconds.</div>
+        </div>
+      </section>
+
+      <section class="world portal-world" data-world="02 / WEIN PORTAL">
+        <div class="world-copy">
+          <p class="world-number">WORLD 02 · PRODUCT SYSTEM</p>
+          <h2>WeIN<br><em>Ops Portal</em></h2>
+          <p>It started as a negotiation tracker. It grew into the place sales and operations run their day: provider intake, role-based pipeline, chat, notifications, and launch handoff.</p>
+          <div class="facts"><span><b>ACTORS</b> Sales · ops · providers</span><span><b>PROOF</b> A launched partner</span><span><b>STACK</b> Flask · Supabase · RLS</span></div>
+          <button class="world-action lime" data-move-deal>Move the deal <span>→</span></button>
+        </div>
+        <div class="world-stage portal-stage" aria-label="Interactive sales pipeline scenario">
+          <div class="portal-top"><span>WeIN / NEGOTIATIONS</span><span><i></i> 3 TEAM MEMBERS LIVE</span></div>
+          <div class="kanban">
+            <div class="lane"><small>CONTACTED <b>3</b></small><div class="ghost-card"></div></div>
+            <div class="lane"><small>NEGOTIATING <b>5</b></small><div class="deal-card" data-deal><span>PRIORITY</span><strong>SOHO Square</strong><small>Family experience · 18% rev share</small><footer><i>AF</i><b>2 notes</b></footer></div></div>
+            <div class="lane"><small>SIGNED <b>2</b></small><div class="launch-slot" data-launch-slot><span>DROP TO SIGN</span></div></div>
+            <div class="lane"><small>LAUNCH <b>1</b></small><div class="launch-checks"><span>✓ Menu assets</span><span>✓ Offer generated</span><span>○ Publish</span></div></div>
+          </div>
+          <div class="portal-bottom"><span data-portal-status>Deal is in negotiation.</span><b>PIPELINE VALUE · LIVE</b></div>
+        </div>
+      </section>
+
+      <section class="world saas-world" data-world="03 / SAAS IN DEVELOPMENT">
+        <div class="world-copy">
+          <p class="world-number">WORLD 03 · CURRENT BUILD</p>
+          <h2>The SaaS<br><em>under construction.</em></h2>
+          <p>This one stays honest: an evolving product shown as architecture, working modules, decisions, and release milestones—not a finished-product fantasy.</p>
+          <div class="facts"><span><b>STATE</b> Active development</span><span><b>VIEW</b> Architecture + build log</span><span><b>NEXT</b> Public identity</span></div>
+          <button class="world-action orange" data-assemble>Assemble the system <span>+</span></button>
+        </div>
+        <div class="world-stage saas-stage" aria-label="SaaS architecture assembly scenario">
+          <div class="blueprint-grid"></div>
+          <div class="blueprint-title"><small>SYSTEM BLUEPRINT / v0.4</small><strong>Product architecture</strong></div>
+          <div class="module m1" data-module><i>01</i><strong>IDENTITY</strong><span>Roles · sessions · permissions</span></div>
+          <div class="module m2" data-module><i>02</i><strong>WORKFLOW</strong><span>States · actions · audit trail</span></div>
+          <div class="module m3" data-module><i>03</i><strong>INTELLIGENCE</strong><span>Automation · retrieval · checks</span></div>
+          <div class="module m4" data-module><i>04</i><strong>OPERATIONS</strong><span>Evidence · alerts · reporting</span></div>
+          <svg class="blueprint-lines" viewBox="0 0 800 600" aria-hidden="true"><path d="M150 160 L400 300 L650 150 M400 300 L250 470 M400 300 L600 450"/></svg>
+          <div class="build-stamp" data-build-stamp>IN DEVELOPMENT</div>
+        </div>
+      </section>
+
+      <section class="world shore-world" data-world="04 / SHORE THING">
+        <div class="world-copy">
+          <p class="world-number">WORLD 04 · BRAND EXPERIENCE</p>
+          <h2>Shore<br><em>Thing</em></h2>
+          <p>A six-section beach-sport and DJ-culture site where the interface behaves like the event: loud posters, moving type, match energy, sunset, and night.</p>
+          <div class="facts"><span><b>SCENE</b> Padel · volleyball · DJs</span><span><b>PROOF</b> Deployed brand site</span><span><b>STACK</b> React 19 · Tailwind</span></div>
+          <button class="world-action pink" data-shore-toggle>Turn up the night <span>☼</span></button>
+        </div>
+        <div class="world-stage shore-stage" data-shore-stage aria-label="Animated Shore Thing festival poster">
+          <div class="sun"></div><div class="shore-grain"></div>
+          <div class="shore-type"><small>BEACH SPORT / DJ CULTURE</small><strong>SHORE<br>THING</strong><span>PLAY UNTIL THE SUN CLOCKS OUT</span></div>
+          <div class="ball" data-ball><i></i></div>
+          <div class="sticker sticker-one">PADEL<br>4PM</div><div class="sticker sticker-two">DJ SET<br>8PM</div>
+          <div class="shore-ticker"><span>PADEL · VOLLEYBALL · SUNSET · MUSIC · PADEL · VOLLEYBALL · SUNSET · MUSIC ·</span></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="archive-section" data-world="05 / ARCHIVE">
+      <p>THE REST OF THE LAB</p>
+      <h2>Smaller experiments.<br>Still worth opening.</h2>
+      <div class="archive-list">
+        <a href="https://github.com/AhmeedFathy/Retail-Profitability-SQL-Analysis"><span>01</span><strong>Retail Profitability</strong><em>SQL · Power BI</em><b>↗</b></a>
+        <a href="https://github.com/AhmeedFathy/California_Housing"><span>02</span><strong>California Housing</strong><em>Machine learning</em><b>↗</b></a>
+        <a href="https://github.com/Parkinson-ML/Parkinson"><span>03</span><strong>Parkinson’s Detection</strong><em>Classification · Regression</em><b>↗</b></a>
+        <a href="https://github.com/AhmeedFathy"><span>04</span><strong>Automation Library</strong><em>15 n8n workflows</em><b>↗</b></a>
+      </div>
+    </section>
+    <section class="end-scene" data-world="06 / CONTACT"><p>Need someone who can own the whole system?</p><h2>Let’s build the<br><em>next world.</em></h2><a href="mailto:af8847492@gmail.com">af8847492@gmail.com ↗</a></section>
+  </main>
+</body>
+</html>
