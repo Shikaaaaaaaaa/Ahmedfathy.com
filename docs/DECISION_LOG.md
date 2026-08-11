@@ -2,6 +2,12 @@
 
 This log is deliberately short. Add an entry whenever a change affects positioning, content truth, visual direction, navigation, or implementation structure.
 
+## 2026-08-11 — Claude debate prepared
+
+- Added `docs/CLAUDE_DEBATE_BRIEF.md` with the repository context, references, factual constraints, and a three-round Claude/Codex review protocol.
+- Claude Code is installed locally, but its OAuth session is expired. No Claude review has been completed yet.
+- Next action: authenticate Claude Code, run the read-only first round, challenge its proposal, and synthesize the result into `docs/PORTFOLIO_ROADMAP.md`.
+
 ## 2026-08-11 — Collaboration baseline created
 
 - Confirmed the project is already a local Git repository with remote `AhmeedFathy/Ahmedfathy.com`.
