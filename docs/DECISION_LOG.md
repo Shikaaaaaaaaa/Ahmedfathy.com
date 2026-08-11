@@ -1,5 +1,12 @@
 # Decision and Session Log
 
+## 2026-08-11 — Automation showcase and live Fieldwork destination
+
+- Replaced the Workflow Library card's general GitHub-profile destination with a dedicated public-safe Automation Systems page inside the portfolio.
+- The showcase explains three real patterns: menu intelligence, hybrid offer generation, and production file/operations handoff.
+- Changed Fieldwork Estates to open its verified live GitHub Pages experience instead of the source repository.
+- Recorded a separate automation repository audit; source remains unlinked until security and presentation cleanup are complete.
+
 ## 2026-08-11 — Shore Thing external link moved inside
 
 - Removed the `Visit live website` action from the Shore Thing record on the Work page.
