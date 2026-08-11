@@ -2,6 +2,13 @@
 
 This log is deliberately short. Add an entry whenever a change affects positioning, content truth, visual direction, navigation, or implementation structure.
 
+## 2026-08-11 — Flagship visuals merged into project records
+
+- Changed the four flagship records from a separate image-plus-content layout into one immersive project canvas.
+- Each evidence image now fills its complete project record; a theme-aware vertical fade protects the detailed case-study text without turning it into a detached card.
+- Dark mode fades into the navy project surface, while light mode fades into a frosted white reading surface.
+- Verified the merged layout at desktop and 390px mobile widths with no overflow or browser errors.
+
 ## 2026-08-11 — Work page visual evidence pass
 
 - Added a dedicated visual to every flagship record on `work.html`; Shore Thing keeps its real campaign artwork, while Offer Pipeline, Operations Portal, and Medical SaaS use project-specific editorial evidence scenes built from their real workflow artifacts.

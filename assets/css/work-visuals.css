@@ -1,16 +1,18 @@
 .work-records .case-record {
   grid-template-columns: 0.82fr 1.55fr 0.83fr;
-  padding: 18px 30px 30px;
+  min-height: 690px;
+  padding: clamp(330px, 35vw, 390px) 30px 34px;
+  background: #0a111d;
 }
 
 .work-records .case-media {
-  position: relative;
-  grid-column: 1 / -1;
-  height: clamp(250px, 34vw, 360px);
-  margin: 0 0 10px;
+  position: absolute;
+  inset: 0;
+  height: auto;
+  margin: 0;
   overflow: hidden;
-  border: 1px solid #40506a;
-  border-radius: 15px;
+  border: 0;
+  border-radius: inherit;
   background: #09101b;
   isolation: isolate;
 }
@@ -26,8 +28,8 @@
 
 .work-records .case-media::before {
   background:
-    linear-gradient(90deg, rgba(6, 11, 19, 0.24), transparent 36%, transparent 70%, rgba(6, 11, 19, 0.16)),
-    linear-gradient(180deg, transparent 58%, rgba(5, 10, 18, 0.62));
+    linear-gradient(90deg, rgba(6, 11, 19, 0.18), transparent 36%, transparent 70%, rgba(6, 11, 19, 0.16)),
+    linear-gradient(180deg, rgba(5, 10, 18, 0.08) 0%, rgba(5, 10, 18, 0.18) 28%, rgba(7, 13, 23, 0.84) 54%, #0a111d 72%);
 }
 
 .work-records .case-media::after {
@@ -56,7 +58,8 @@
   position: absolute;
   z-index: 2;
   left: 18px;
-  bottom: 16px;
+  top: 18px;
+  bottom: auto;
   padding: 8px 10px;
   border: 1px solid rgba(164, 190, 241, 0.38);
   border-radius: 999px;
@@ -68,6 +71,18 @@
   backdrop-filter: blur(10px);
 }
 
+.work-records .case-identity,
+.work-records .case-story,
+.work-records .case-system {
+  align-self: end;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.38);
+}
+
+.work-records .case-story p,
+.work-records .case-system p {
+  color: #c5cedc;
+}
+
 .work-records .case-media--medical img {
   filter: saturate(0.82) brightness(0.68) contrast(1.05);
 }
@@ -77,7 +92,7 @@
 }
 
 .work-records #shore {
-  padding-top: 18px !important;
+  padding-top: clamp(330px, 35vw, 390px) !important;
 }
 
 .work-records #shore::before,
@@ -148,12 +163,28 @@
 }
 
 .light .work-records .case-media {
-  border-color: #aab8cb;
   background: #dfe7f1;
 }
 
 .light .work-records .case-media::before {
-  background: linear-gradient(180deg, transparent 66%, rgba(13, 24, 40, 0.35));
+  background:
+    linear-gradient(90deg, rgba(241, 245, 250, 0.05), transparent 38%, transparent 72%, rgba(241, 245, 250, 0.08)),
+    linear-gradient(180deg, rgba(245, 248, 252, 0.02) 0%, rgba(245, 248, 252, 0.16) 30%, rgba(241, 245, 250, 0.88) 55%, #f1f5fa 74%);
+}
+
+.light .work-records .case-record {
+  background: #f1f5fa;
+}
+
+.light .work-records .case-identity,
+.light .work-records .case-story,
+.light .work-records .case-system {
+  text-shadow: none;
+}
+
+.light .work-records .case-story p,
+.light .work-records .case-system p {
+  color: #475568;
 }
 
 .light .work-records .case-media--medical img {
@@ -179,19 +210,29 @@
 @media (max-width: 600px) {
   .work-records .case-record,
   .work-records #shore {
-    padding: 10px 10px 24px !important;
+    min-height: 0;
+    padding: 240px 20px 26px !important;
   }
 
   .work-records .case-media {
-    height: 210px;
-    margin-bottom: 24px;
-    border-radius: 11px;
+    height: auto;
+    margin: 0;
+    border-radius: inherit;
   }
 
   .work-records .case-media > span {
     left: 10px;
-    bottom: 10px;
+    top: 10px;
+    bottom: auto;
     max-width: calc(100% - 20px);
+  }
+
+  .work-records .case-media::before {
+    background: linear-gradient(180deg, rgba(5, 10, 18, 0.02) 0%, rgba(7, 13, 23, 0.78) 27%, #0a111d 43%);
+  }
+
+  .light .work-records .case-media::before {
+    background: linear-gradient(180deg, rgba(245, 248, 252, 0.02) 0%, rgba(241, 245, 250, 0.84) 27%, #f1f5fa 43%);
   }
 
   .archive-signatures .archive-card {
