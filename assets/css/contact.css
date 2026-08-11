@@ -24,12 +24,8 @@
   line-height: 1.75;
 }
 
-.contact-copy .resource {
-  margin-top: 1.8rem;
-}
-
 .contact-facts {
-  margin: 1.2rem 0 0;
+  margin: 2rem 0 0;
   border-top: 1px solid var(--line);
 }
 

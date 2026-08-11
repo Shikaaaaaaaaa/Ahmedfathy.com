@@ -1,5 +1,12 @@
 # Decision and Session Log
 
+## 2026-08-11 — WhatsApp added as a direct channel
+
+- Removed the redundant direct-email resource box from the primary Contact panel.
+- Added Ahmed's verified Egyptian mobile number as a `wa.me` link using the international format `201142492301`.
+- Added a short prefilled introduction so portfolio visitors can start a relevant conversation immediately.
+- Added WhatsApp to the Contact page, the home-page Connect group, and supporting-page contact footers.
+
 ## 2026-08-11 — Contact page expanded
 
 - Reframed Contact around a useful project brief rather than a minimal generic form.
