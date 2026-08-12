@@ -72,28 +72,6 @@
   background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
-.copy-email {
-  padding: .65rem .85rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--accent2);
-  font: 500 .58rem/1 var(--mono);
-  cursor: pointer;
-  transition: border-color .2s ease, background .2s ease, transform .2s ease, color .2s ease;
-}
-
-.copy-email:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-}
-
-.copy-email.is-copied {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
 .signal-form {
   align-content: start;
   padding: clamp(2rem, 4vw, 3.25rem);
