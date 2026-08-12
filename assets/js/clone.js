@@ -1,9 +1,4 @@
 (() => {
-  const extra = document.createElement('link');
-  extra.rel = 'stylesheet';
-  extra.href = 'assets/css/hero-section.css';
-  document.head.append(extra);
-
   const body = document.body;
   const theme = document.querySelector('.theme');
   const hero = document.querySelector('.hero-upgraded');
@@ -116,16 +111,3 @@
     window.location.href = `mailto:af8847492@gmail.com?subject=${encodeURIComponent(value('title'))}&body=${encodeURIComponent(`${value('message')}\n\nFrom: ${signature}`)}`;
   });
 })();
-
-queueMicrotask(() => {
-  const style = [...document.querySelectorAll('link[rel="stylesheet"]')]
-    .find(link => link.href.includes('/assets/css/hero-section.css'));
-  if (style) style.href = 'assets/css/hero-section.css?v=20260810-scene2';
-
-  if (!document.querySelector('.hero-upgraded') && !document.querySelector('.page-scene')) {
-    const scene = document.createElement('div');
-    scene.className = 'page-scene';
-    scene.setAttribute('aria-hidden', 'true');
-    document.body.prepend(scene);
-  }
-});

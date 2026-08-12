@@ -141,6 +141,7 @@
 }
 
 .evidence-frame--shore .evidence-frame__media {
+  height: auto;
   aspect-ratio: 16 / 9;
   object-position: center;
   transform: scale(1.015);
