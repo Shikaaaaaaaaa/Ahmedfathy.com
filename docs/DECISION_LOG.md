@@ -204,6 +204,12 @@ This log is deliberately short. Add an entry whenever a change affects positioni
 - Added `robots.txt` and `sitemap.xml` for the ten active production pages.
 - Added cache-busting versions to the shared UX scripts and styles so the deployed corrections reach returning visitors immediately.
 
+## 2026-08-12 — Contact delivery flow made browser-native
+
+- Replaced the contact page's `mailto:`-only actions with Gmail compose links because visitors without a configured desktop mail handler received no visible result.
+- The direct Email action opens a pre-addressed Gmail draft in a new tab.
+- The Project Brief form opens Gmail with the visitor's completed subject and message already placed in the compose draft; the user still reviews and sends it themselves.
+
 ## Open questions
 
 - Which public-safe real artifacts can be used for Offer Pipeline, Operations Portal, and Medical SaaS?

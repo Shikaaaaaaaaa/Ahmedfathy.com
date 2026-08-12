@@ -108,7 +108,15 @@
     const form = event.currentTarget;
     const value = field => form.elements.namedItem(field)?.value.trim() || '';
     const signature = [value('name'), value('email')].filter(Boolean).join(' · ');
-    window.location.href = `mailto:af8847492@gmail.com?subject=${encodeURIComponent(value('title'))}&body=${encodeURIComponent(`${value('message')}\n\nFrom: ${signature}`)}`;
+    const draft = new URL('https://mail.google.com/mail/');
+    draft.search = new URLSearchParams({
+      view: 'cm',
+      fs: '1',
+      to: 'af8847492@gmail.com',
+      su: value('title') || 'Portfolio enquiry',
+      body: `${value('message')}\n\nFrom: ${signature}`
+    }).toString();
+    window.location.assign(draft.toString());
   });
 
 })();
