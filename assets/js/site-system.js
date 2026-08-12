@@ -1,16 +1,5 @@
 (() => {
   const initializeSiteSystem = () => {
-    const enhancedStyles = [...document.querySelectorAll('link[rel="stylesheet"]')]
-      .find(link => link.href.includes('/assets/css/hero-section.css'));
-    if (enhancedStyles) enhancedStyles.href = 'assets/css/hero-section.css?v=20260811-ux1';
-
-    if (!document.querySelector('.hero-upgraded') && !document.querySelector('.page-scene')) {
-      const scene = document.createElement('div');
-      scene.className = 'page-scene';
-      scene.setAttribute('aria-hidden', 'true');
-      document.body.prepend(scene);
-    }
-
     const theme = document.querySelector('.theme');
     const syncTheme = () => {
       const isLight = document.body.classList.contains('light');

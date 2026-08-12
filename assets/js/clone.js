@@ -110,4 +110,24 @@
     const signature = [value('name'), value('email')].filter(Boolean).join(' · ');
     window.location.href = `mailto:af8847492@gmail.com?subject=${encodeURIComponent(value('title'))}&body=${encodeURIComponent(`${value('message')}\n\nFrom: ${signature}`)}`;
   });
+
+  document.querySelectorAll('.copy-email').forEach(button => {
+    const label = button.querySelector('span');
+    const defaultText = label?.textContent ?? 'Copy email';
+    button.addEventListener('click', async () => {
+      const email = button.dataset.email;
+      if (!email) return;
+      try {
+        await navigator.clipboard.writeText(email);
+      } catch {
+        return;
+      }
+      button.classList.add('is-copied');
+      if (label) label.textContent = 'Copied';
+      setTimeout(() => {
+        button.classList.remove('is-copied');
+        if (label) label.textContent = defaultText;
+      }, 1800);
+    });
+  });
 })();

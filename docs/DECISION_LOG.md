@@ -70,6 +70,29 @@
 - Confirmed `case-offer.html`, `case-portal.html`, `case-saas.html` are unaffected: their evidence visuals are hand-built CSS/HTML diagrams (`.offer-pipeline`, etc.), not photos, so this crop mechanism doesn't apply to them.
 - Bumped cache-busting versions: `work-visuals.css` → `?v=20260812-1`, `evidence.css` → `?v=20260812-1` (on all four case pages).
 
+## 2026-08-12 — Mobile nav: bottom tab bar replaces the hamburger dropdown
+
+- On request: mobile's collapsed hamburger menu hid all 5 destinations behind a tap, while desktop shows them inline. Replaced with a fixed bottom tab bar (same pattern as native app navigation) inside the existing `@media(max-width:560px)` block in `hero-section.css` — all 5 links (Home/Work/Stack/Experience/Contact) are now always visible, pinned to the bottom of the viewport. Top bar simplifies to logo + theme toggle only on mobile.
+- Reused the existing shared `<nav class="nav">` markup already identical across all 10 pages — no HTML duplication, CSS-only change.
+- Added `env(safe-area-inset-bottom)` padding so it clears the home-indicator on notched iPhones, and matching `body{padding-bottom}` so the fixed bar never covers the footer or last section of any page.
+- `.mobile-nav-toggle` (hamburger button, injected by `site-system.js`) is now `display:none` on mobile — still created by JS (harmless, inert, correctly removed from the accessibility tree by `display:none`) rather than removing the injection code, to keep this change CSS-only and lower-risk.
+- Desktop unaffected — change is scoped entirely inside the mobile breakpoint.
+
+## 2026-08-12 — Second copy of the fragile CSS-injection bug, found in `site-system.js`
+
+- While investigating a "still not appears" report, found that `site-system.js` (loaded on every page) had the *same* anti-pattern already fixed in `clone.js` earlier today: it unconditionally rewrote `hero-section.css`'s `<link>` href back to a hardcoded old version string (`?v=20260811-ux1`) on every page load — silently undoing any cache-bust version bump made earlier that same session, including several made earlier today. This was missed during the first pass because `clone.js` and `site-system.js` are separate files and only `clone.js` was audited at the time.
+- Also removed the same dead-code `.page-scene` fallback-creation check present in this file (the earlier, unconditional creation logic elsewhere in the same script already guarantees `.page-scene` exists by the time this check runs, so the condition could never be true).
+- Bumped `site-system.js` to `?v=20260812-1` across all ten active pages.
+- **Follow-up for any future JS edit in this repo:** grep for `hero-section.css` across `assets/js/*.js` before assuming a stylesheet fix is complete — confirmed via this bug that more than one file was silently overriding it.
+
+## 2026-08-12 — Contact page: no visible/fallback way to get the email address if mailto fails
+
+- Audited `contact.html`, `clone.js`, and `site-system.js` for anything blocking the `mailto:` links or the "Prepare Email" form handler — found no interception (no global click handlers, the `a[target="_blank"]` rel-hardening loop only touches external links, the form's `preventDefault` is correctly scoped). The mailto links and form handler are correctly formed.
+- The real gap: the email address was never rendered as visible text anywhere on the page — only hidden inside the `mailto:` href. `mailto:` links only work if the visitor's browser/OS has a mail client registered as the default handler, which is common to not have (especially on desktop, or inside sandboxed preview/embed frames, which frequently block `mailto:` navigation outright) — and when it silently does nothing, there was previously no way to recover the address.
+- Fix: added the address as always-visible plain text (`Email → af8847492@gmail.com`) to the existing `.contact-facts` list, and added a "Copy email" button next to the Email link using `navigator.clipboard.writeText`, with a 1.8s "Copied" confirmation state. This works regardless of whether a mail client is registered.
+- Verified the click handler logic directly (captured the argument passed to a stubbed `clipboard.writeText`, confirmed the label/class toggle on click and correctly reverts after the timeout) since this session's browser preview pane cannot reliably composite a real click for a visual screenshot confirmation.
+- Bumped `contact.css` → `?v=20260812-1`, `clone.js` → `?v=20260812-ux4`.
+
 ## 2026-08-12 — hero-section.css was only ever loaded via a fragile JS injection
 
 - Root cause: `assets/css/hero-section.css` — which carries the topbar background, `.hero-upgraded` layout, and the flagship `.case-record` grid used on `work.html` — was never linked in any page's `<head>`. It was injected at runtime by `assets/js/clone.js`: `document.head.append()` with an *unversioned* URL, then a `queueMicrotask` immediately rewrote the same `<link>`'s `href` to the versioned URL — aborting the first fetch and restarting a second one. This meant a page's core layout CSS depended on `clone.js` (a blocking, non-`defer` script placed near the end of `<body>`) executing successfully, added an unnecessary network round trip, and risked a flash of incorrectly-laid-out content on any slow or interrupted connection. The `queueMicrotask` block also contained a `.page-scene` fallback-creation check that was already dead code — the same IIFE unconditionally creates `.page-scene` earlier if missing, so the later condition could never be true.
